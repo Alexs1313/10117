@@ -22,8 +22,8 @@ const VOLUME_BAR_HEIGHTS = [
 const FREQ_MIN = 15000;
 const FREQ_MAX = 20000;
 
-const REPELLER_SOUND = 'freesound_community_generic_censor_tone_104518.mp3';
-const ALARM_SOUND = 'dragon_studio_animal_grunt_382728.mp3';
+const REPELLER_SOUND = require('../assets/freesound_community_generic_censor_tone_104518.mp3');
+const ALARM_SOUND = require('../assets/dragon_studio_animal_grunt_382728.mp3');
 
 export function SafetyScreen() {
   const insets = useSafeAreaInsets();

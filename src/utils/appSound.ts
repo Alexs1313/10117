@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import {Image, Platform} from 'react-native';
 
 type SoundCallback = (error: unknown) => void;
 
@@ -30,6 +30,8 @@ type SoundConstructor = {
   ): NativeSoundInstance;
 };
 
+type SoundSource = number | string;
+
 let SoundClass: SoundConstructor | null | undefined;
 
 function loadSoundClass(): SoundConstructor | null {
@@ -54,6 +56,29 @@ function toAndroidRawName(filename: string): string {
   return filename.toLowerCase().replace(/\.[^.]+$/, '');
 }
 
+function resolveSoundPath(source: SoundSource): {path: string; basePath: string} {
+  if (typeof source === 'number') {
+    const asset = Image.resolveAssetSource(source);
+    if (!asset?.uri) {
+      throw new Error('Unable to resolve sound asset URI');
+    }
+    // Metro / bundled asset URI (http in debug, file/asset in release).
+    return {path: asset.uri, basePath: ''};
+  }
+
+  if (/^(https?:|file:|asset:)/.test(source)) {
+    return {path: source, basePath: ''};
+  }
+
+  // Legacy filename lookup: Android res/raw (no extension), iOS main bundle.
+  if (Platform.OS === 'android') {
+    return {path: toAndroidRawName(source), basePath: ''};
+  }
+
+  const Sound = loadSoundClass();
+  return {path: source, basePath: Sound?.MAIN_BUNDLE ?? ''};
+}
+
 function createNoopSound(): AppSound {
   return {
     play: onEnd => {
@@ -68,7 +93,7 @@ function createNoopSound(): AppSound {
 }
 
 export function createAppSound(
-  filename: string,
+  source: SoundSource,
   onError?: SoundCallback,
 ): AppSound {
   const Sound = loadSoundClass();
@@ -83,16 +108,19 @@ export function createAppSound(
   let pendingVolume: number | null = null;
   let released = false;
 
-  // Android looks up res/raw by name without extension.
-  // Pass empty base path (MAIN_BUNDLE is "" on Android) so the library
-  // strips the extension; never pass the callback as the 2nd argument.
-  const resolvedName =
-    Platform.OS === 'android' ? toAndroidRawName(filename) : filename;
-  const basePath = Platform.OS === 'android' ? '' : Sound.MAIN_BUNDLE;
+  let path: string;
+  let basePath: string;
+  try {
+    ({path, basePath} = resolveSoundPath(source));
+  } catch (error) {
+    console.warn('Failed to resolve sound source:', source, error);
+    onError?.(error);
+    return createNoopSound();
+  }
 
-  const sound = new Sound(resolvedName, basePath, (error: unknown) => {
+  const sound = new Sound(path, basePath, (error: unknown) => {
     if (error) {
-      console.warn('Failed to load sound:', resolvedName, error);
+      console.warn('Failed to load sound:', path, error);
       onError?.(error);
       return;
     }
@@ -115,7 +143,7 @@ export function createAppSound(
       const start = () => {
         sound.play(success => {
           if (!success) {
-            console.warn('Sound playback failed:', resolvedName);
+            console.warn('Sound playback failed:', path);
           }
           onEnd?.();
         });
