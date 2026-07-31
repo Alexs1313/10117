@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   ToolsSection: {
-    marginTop: 14,
+    marginTop: 13,
   },
   ToolsSectionTitle: {
     color: colors.title,
