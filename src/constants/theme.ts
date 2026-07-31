@@ -1,13 +1,13 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
-import {fonts} from './fonts';
+import { fonts } from './fonts';
 
 export const DESIGN_WIDTH = 393;
 export const DESIGN_HEIGHT = 852;
 
 export const colors = {
   background: '#0b0f26',
-  surface: '#0b0f26',
+  surface: 'rgb(29, 2, 38)',
   title: '#ede8d8',
   body: '#8baec7',
   bodyMuted: '#6a7ca0',
@@ -22,7 +22,7 @@ export const colors = {
   chipBorder: '#1a2248',
   chipText: '#6a7ca0',
   tagBg: 'rgba(201, 164, 39, 0.12)',
-  tabBar: '#06091a',
+  tabBar: 'rgb(20, 1, 26)',
   tabInactive: '#334166',
   white: '#ffffff',
   black: '#000000',
@@ -77,4 +77,4 @@ export const layout = {
 export const topInset = (value: number) =>
   Platform.OS === 'android' ? Math.max(value, 30) : value;
 
-export {fonts};
+export { fonts };

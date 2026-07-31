@@ -1,4 +1,4 @@
-package com.viknergotravelo
+package com.viknergo.waygo
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -1,4 +1,4 @@
-package com.viknergotravelo
+package com.viknergo.waygo
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
