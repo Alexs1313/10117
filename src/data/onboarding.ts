@@ -26,9 +26,9 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     image: onboardingImages.step3,
-    title: 'Tools & Safety Quiz',
+    title: 'Useful Outdoor Tools',
     description:
-      'Stay prepared with a screen flashlight and a safety quiz about Nordic trails and wilderness travel.',
+      'Stay prepared with a screen flashlight, real-time compass, mosquito repeller, and emergency animal alarm.',
     buttonLabel: 'Continue',
   },
   {

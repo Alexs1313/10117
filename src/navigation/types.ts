@@ -5,6 +5,7 @@ export type GuestTab =
   | 'LocationsTab'
   | 'MapTab'
   | 'FlashlightTab'
+  | 'CompassTab'
   | 'SafetyTab';
 
 export type GuestOverlay =

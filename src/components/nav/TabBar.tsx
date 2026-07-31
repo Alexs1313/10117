@@ -11,6 +11,7 @@ const TAB_ORDER: GuestTab[] = [
   'LocationsTab',
   'MapTab',
   'FlashlightTab',
+  'CompassTab',
   'SafetyTab',
 ];
 
@@ -19,6 +20,7 @@ const TAB_LABELS: Record<GuestTab, string> = {
   LocationsTab: 'Locations',
   MapTab: 'Map',
   FlashlightTab: 'Flashlight',
+  CompassTab: 'Compass',
   SafetyTab: 'Safety',
 };
 
@@ -27,6 +29,7 @@ const TAB_ICON_SOURCES = {
   LocationsTab: tabIcons.locations,
   MapTab: tabIcons.map,
   FlashlightTab: tabIcons.flashlight,
+  CompassTab: tabIcons.compass,
   SafetyTab: tabIcons.safety,
 } as const;
 

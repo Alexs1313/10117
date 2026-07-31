@@ -14,6 +14,12 @@ export const icons = {
   back: require('../assets/viknergo_icon_back.png') as ImageSourcePropType,
 };
 
+export const compassImages = {
+  dial: require('../assets/viknergo_compass_dial.png') as ImageSourcePropType,
+  mascot:
+    require('../assets/viknergo_compass_mascot.png') as ImageSourcePropType,
+};
+
 export const tabIcons = {
   home: require('../assets/viknergo_tab_home.png') as ImageSourcePropType,
   locations:
@@ -21,6 +27,7 @@ export const tabIcons = {
   map: require('../assets/viknergo_tab_map.png') as ImageSourcePropType,
   flashlight:
     require('../assets/viknergo_tab_flashlight.png') as ImageSourcePropType,
+  compass: require('../assets/viknergo_tab_compass.png') as ImageSourcePropType,
   safety: require('../assets/viknergo_tab_safety.png') as ImageSourcePropType,
 };
 

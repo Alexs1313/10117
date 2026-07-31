@@ -117,10 +117,10 @@ export function HomeScreen() {
           <Text style={styles.ToolsSectionTitle}>Quick Tools</Text>
           <View style={styles.ToolsGrid}>
             <QuickToolCard
-              icon={tabIcons.locations}
-              title="Locations"
-              subtitle="Nordic spots"
-              onPress={goToTab('LocationsTab')}
+              icon={tabIcons.compass}
+              title="Compass"
+              subtitle="NNE · 022°"
+              onPress={goToTab('CompassTab')}
             />
             <QuickToolCard
               icon={tabIcons.flashlight}
@@ -129,15 +129,15 @@ export function HomeScreen() {
               onPress={goToTab('FlashlightTab')}
             />
             <QuickToolCard
-              icon={tabIcons.map}
-              title="Map"
-              subtitle="12 destinations"
-              onPress={goToTab('MapTab')}
+              icon={tabIcons.safety}
+              title="Mosquito Rep."
+              subtitle="17,500 Hz"
+              onPress={goToTab('SafetyTab')}
             />
             <QuickToolCard
               icon={tabIcons.safety}
-              title="Safety Quiz"
-              subtitle="5 levels"
+              title="Animal Alarm"
+              subtitle="Ready"
               onPress={goToTab('SafetyTab')}
             />
           </View>

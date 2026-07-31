@@ -1,231 +1,248 @@
-import React, { useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Image,
   ScrollView,
-  Share,
   StatusBar,
   StyleSheet,
+  Switch,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import { AnimatedScreen } from '../components/AnimatedScreen';
-import { PrimaryButton } from '../components/buttons/PrimaryButton';
-import { QUIZ_LEVELS } from '../data/quiz';
-import { colors, fonts, layout, radius } from '../constants/theme';
+import {AppSlider} from '../components/inputs/AppSlider';
+import {colors, fonts, layout} from '../constants/theme';
+import {createAppSound, type AppSound} from '../utils/appSound';
 
-const PASS_RATIO = 0.7;
+const VOLUME_BAR_HEIGHTS = [
+  4, 7, 10, 14, 18, 22, 26, 30, 28, 24, 20, 16, 20, 24, 28, 30, 26, 22, 18, 14,
+];
 
-const QUIZ_MASCOT_IMAGE = require('../assets/viknergo_compass_mascot.png');
+const FREQ_MIN = 15000;
+const FREQ_MAX = 20000;
 
-type QuizStage = 'intro' | 'question' | 'complete' | 'failed';
+const REPELLER_SOUND = 'freesound_community_generic_censor_tone_104518.mp3';
+const ALARM_SOUND = 'dragon_studio_animal_grunt_382728.mp3';
 
 export function SafetyScreen() {
   const insets = useSafeAreaInsets();
-  const [levelIndex, setLevelIndex] = useState(0);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [stage, setStage] = useState<QuizStage>('intro');
+  const [repellerOn, setRepellerOn] = useState(false);
+  const [frequency, setFrequency] = useState(17500);
+  const [alarmPlaying, setAlarmPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.7);
 
-  const level = QUIZ_LEVELS[levelIndex];
-  const question = level.questions[questionIndex];
+  const repellerSoundRef = useRef<AppSound | null>(null);
+  const alarmSoundRef = useRef<AppSound | null>(null);
+  const alarmPlayingRef = useRef(false);
 
-  const startQuiz = () => {
-    setQuestionIndex(0);
-    setCorrectCount(0);
-    setSelectedIndex(null);
-    setStage('question');
-  };
+  useEffect(() => {
+    repellerSoundRef.current = createAppSound(REPELLER_SOUND, err => {
+      if (err) {
+        console.warn('Failed to load repeller sound:', err);
+      }
+    });
+    alarmSoundRef.current = createAppSound(ALARM_SOUND, err => {
+      if (err) {
+        console.warn('Failed to load alarm sound:', err);
+      }
+    });
+    return () => {
+      repellerSoundRef.current?.stop();
+      alarmSoundRef.current?.stop();
+      repellerSoundRef.current?.release();
+      alarmSoundRef.current?.release();
+      repellerSoundRef.current = null;
+      alarmSoundRef.current = null;
+    };
+  }, []);
 
-  const exitToIntro = () => {
-    setQuestionIndex(0);
-    setCorrectCount(0);
-    setSelectedIndex(null);
-    setStage('intro');
-  };
-
-  const nextLevel = () => {
-    setLevelIndex(prev => (prev + 1) % QUIZ_LEVELS.length);
-    setQuestionIndex(0);
-    setCorrectCount(0);
-    setSelectedIndex(null);
-    setStage('intro');
-  };
-
-  const selectAnswer = (index: number) => {
-    if (selectedIndex !== null) {
+  useEffect(() => {
+    const s = repellerSoundRef.current;
+    if (!s) {
       return;
     }
-    setSelectedIndex(index);
-    const updatedCorrect =
-      correctCount + (index === question.correctIndex ? 1 : 0);
-    setCorrectCount(updatedCorrect);
+    if (repellerOn) {
+      s.setNumberOfLoops(-1);
+      s.play();
+    } else {
+      s.stop();
+    }
+  }, [repellerOn]);
 
-    setTimeout(() => {
-      const isLastQuestion = questionIndex + 1 >= level.questions.length;
-      if (!isLastQuestion) {
-        setQuestionIndex(prev => prev + 1);
-        setSelectedIndex(null);
-        return;
-      }
-      const passed = updatedCorrect / level.questions.length >= PASS_RATIO;
-      setStage(passed ? 'complete' : 'failed');
-    }, 900);
-  };
+  const handleVolumeChange = useCallback((val: number) => {
+    setVolume(val);
+    alarmSoundRef.current?.setVolume(val);
+  }, []);
 
-  const handleShare = () => {
-    Share.share({
-      message:
-        stage === 'complete'
-          ? `I just completed "${level.title}" in Viknergo Safety Quiz!`
-          : `Playing "${level.title}" in Viknergo Safety Quiz — trying again!`,
-    }).catch(() => undefined);
-  };
+  const toggleAlarm = useCallback(() => {
+    const s = alarmSoundRef.current;
+    if (!s) {
+      return;
+    }
+    if (alarmPlayingRef.current) {
+      s.stop();
+      alarmPlayingRef.current = false;
+      setAlarmPlaying(false);
+      return;
+    }
+
+    s.setVolume(volume);
+    s.setNumberOfLoops(-1);
+    alarmPlayingRef.current = true;
+    setAlarmPlaying(true);
+    s.play(() => {
+      alarmPlayingRef.current = false;
+      setAlarmPlaying(false);
+    });
+  }, [volume]);
+
+  const formattedFreq = frequency.toLocaleString('en-US');
 
   return (
-    <View style={[styles.Screen]}>
-      <ScrollView
-        contentContainerStyle={[styles.ScrollContent]}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={[styles.Header, { paddingTop: insets.top }]}>
-          <Text style={styles.Title}>Safety Quiz</Text>
-          {stage === 'question' ? (
-            <TouchableOpacity
-              style={styles.ExitPill}
-              onPress={exitToIntro}
-              activeOpacity={0.85}
-            >
-              <Text style={styles.ExitPillText}>Exit</Text>
-            </TouchableOpacity>
-          ) : (
-            <Text style={styles.Subtitle}>Wildlife & trail knowledge</Text>
-          )}
-        </View>
+    <View style={[styles.Screen, {paddingTop: insets.top}]}>
+      <StatusBar barStyle="light-content" />
 
-        <AnimatedScreen
-          key={`${stage}-${levelIndex}-${questionIndex}`}
-          style={styles.Body}
-          distance={20}
-          duration={360}
-        >
-          {stage === 'intro' ? (
-            <View style={styles.Intro}>
-              <Image
-                source={QUIZ_MASCOT_IMAGE}
-                style={styles.IntroImage}
-                resizeMode="contain"
-              />
-              <View style={styles.Card}>
-                <Text style={styles.LevelLabel}>
-                  Level {levelIndex + 1} · {level.title}
-                </Text>
-                <Text style={styles.IntroText}>{level.description}</Text>
-                <PrimaryButton
-                  label="Start Quiz"
-                  onPress={startQuiz}
-                  width={null}
-                  style={styles.PrimaryFull}
+      <View style={styles.Header}>
+        <Text style={styles.Title}>Safety</Text>
+        <Text style={styles.Subtitle}>Wildlife protection tools</Text>
+      </View>
+
+      <ScrollView
+        style={styles.Scroll}
+        contentContainerStyle={styles.ScrollContent}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.Card}>
+          <View style={styles.CardHeader}>
+            <View style={styles.CardHeaderLeft}>
+              <View style={styles.IconBox}>
+                <Image
+                  source={require('../assets/viknergo_safety_repeller.png')}
+                  style={styles.IconImage}
+                  resizeMode="contain"
                 />
               </View>
-            </View>
-          ) : null}
-
-          {stage === 'question' ? (
-            <View style={styles.QuestionBlock}>
-              <Text style={styles.ProgressText}>
-                Question {questionIndex + 1} / {level.questions.length}
-              </Text>
-              <Text style={styles.QuestionText}>
-                {questionIndex + 1}. {question.text}
-              </Text>
-              <View style={styles.Options}>
-                {question.options.map((option, index) => {
-                  const isCorrect = index === question.correctIndex;
-                  const isSelected = index === selectedIndex;
-                  const answered = selectedIndex !== null;
-                  return (
-                    <TouchableOpacity
-                      key={option}
-                      style={[
-                        styles.Option,
-                        answered && isCorrect && styles.OptionCorrect,
-                        answered &&
-                          isSelected &&
-                          !isCorrect &&
-                          styles.OptionWrong,
-                      ]}
-                      disabled={answered}
-                      activeOpacity={0.85}
-                      onPress={() => selectAnswer(index)}
-                    >
-                      <Text
-                        style={[
-                          styles.OptionText,
-                          answered && !isCorrect && styles.OptionTextDim,
-                        ]}
-                      >
-                        {String.fromCharCode(65 + index)}. {option}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-              <Image
-                source={QUIZ_MASCOT_IMAGE}
-                style={styles.QuestionImage}
-                resizeMode="contain"
-              />
-            </View>
-          ) : null}
-
-          {stage === 'complete' || stage === 'failed' ? (
-            <View style={styles.Result}>
-              <Image
-                source={QUIZ_MASCOT_IMAGE}
-                style={styles.ResultImage}
-                resizeMode="contain"
-              />
-              <View style={styles.Card}>
-                <Text style={styles.ResultTitle}>
-                  {stage === 'complete' ? 'Level Complete' : 'Try Again'}
-                </Text>
-                <Text style={styles.ResultSubtitle}>
-                  {stage === 'complete'
-                    ? `You scored ${correctCount}/${level.questions.length}. Ready for the next trail challenge.`
-                    : `You scored ${correctCount}/${level.questions.length}. Review the tips and try this level again.`}
-                </Text>
-
-                <TouchableOpacity
-                  style={styles.ResultBtn}
-                  activeOpacity={0.85}
-                  onPress={stage === 'complete' ? nextLevel : startQuiz}
-                >
-                  <Text style={styles.ResultBtnText}>
-                    {stage === 'complete' ? 'Next Level' : 'Try Again'}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.ResultBtn}
-                  activeOpacity={0.85}
-                  onPress={handleShare}
-                >
-                  <Text style={styles.ResultBtnText}>Share</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.ResultBtn}
-                  activeOpacity={0.85}
-                  onPress={exitToIntro}
-                >
-                  <Text style={styles.ResultBtnText}>Exit</Text>
-                </TouchableOpacity>
+              <View>
+                <Text style={styles.CardTitle}>Mosquito Repeller</Text>
+                <Text style={styles.CardSubtitle}>Ultrasonic frequency</Text>
               </View>
             </View>
+            <Switch
+              value={repellerOn}
+              onValueChange={setRepellerOn}
+              trackColor={{false: '#1a2248', true: colors.button}}
+              thumbColor={repellerOn ? colors.buttonText : '#6a7ca0'}
+            />
+          </View>
+
+          <View style={styles.FreqDisplay}>
+            <Text style={styles.FreqValue}>{formattedFreq}</Text>
+            <Text style={styles.FreqUnit}>Hz · Ultrasonic</Text>
+          </View>
+
+          <View style={styles.SliderSection}>
+            <View style={styles.SliderLabels}>
+              <Text style={styles.SliderLabel}>15,000 Hz</Text>
+              <Text style={styles.SliderLabel}>20,000 Hz</Text>
+            </View>
+            <AppSlider
+              style={styles.SliderControl}
+              minimumValue={FREQ_MIN}
+              maximumValue={FREQ_MAX}
+              step={100}
+              value={frequency}
+              onValueChange={setFrequency}
+              minimumTrackTintColor={colors.button}
+              maximumTrackTintColor="#1a2248"
+              thumbTintColor={colors.button}
+            />
+          </View>
+
+          {repellerOn ? (
+            <View style={styles.StatusBadge}>
+              <View style={styles.StatusDot} />
+              <Text style={styles.StatusText}>Active · Repelling mosquitoes</Text>
+            </View>
           ) : null}
-        </AnimatedScreen>
+        </View>
+
+        <View style={[styles.Card, styles.AlarmCard]}>
+          <View style={styles.CardHeader}>
+            <View style={styles.CardHeaderLeft}>
+              <View style={styles.IconBox}>
+                <Image
+                  source={require('../assets/viknergo_safety_alarm.png')}
+                  style={styles.IconImage}
+                  resizeMode="contain"
+                />
+              </View>
+              <View>
+                <Text style={styles.CardTitle}>Wild Animal Alarm</Text>
+                <Text style={styles.CardSubtitle}>High-frequency deterrent</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.PlayButtonRow}>
+            <TouchableOpacity
+              style={styles.PlayButton}
+              onPress={toggleAlarm}
+              activeOpacity={0.8}>
+              {alarmPlaying ? (
+                <Image
+                  source={require('../assets/pause.png')}
+                  style={styles.PlayButtonImage}
+                  resizeMode="contain"
+                />
+              ) : (
+                <Text style={styles.PlayButtonIcon}>▶</Text>
+              )}
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.VolumeLabelRow}>
+            <Text style={styles.VolumeLabel}>Volume Level</Text>
+          </View>
+
+          <View style={styles.VolumeBars}>
+            {VOLUME_BAR_HEIGHTS.map((h, i) => {
+              const barThreshold = (i + 1) / VOLUME_BAR_HEIGHTS.length;
+              return (
+                <View
+                  key={i}
+                  style={[
+                    styles.VolumeBar,
+                    {
+                      height: h,
+                      backgroundColor:
+                        volume >= barThreshold ? colors.button : '#1a2248',
+                    },
+                  ]}
+                />
+              );
+            })}
+          </View>
+
+          <AppSlider
+            style={styles.VolumeSlider}
+            minimumValue={0}
+            maximumValue={1}
+            step={0.05}
+            value={volume}
+            onValueChange={handleVolumeChange}
+            minimumTrackTintColor={colors.button}
+            maximumTrackTintColor="#1a2248"
+            thumbTintColor={colors.button}
+          />
+
+          <View style={styles.WarningBox}>
+            <Text style={styles.WarningIcon}>⚠</Text>
+            <Text style={styles.WarningText}>
+              Use only when wildlife is detected nearby. May disturb other hikers
+              or campers in the area.
+            </Text>
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -236,13 +253,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     flex: 1,
   },
-  ScrollContent: {
-    flexGrow: 1,
-    paddingBottom: 24,
-  },
   Header: {
     paddingBottom: 8,
     paddingHorizontal: layout.screenPadding,
+    paddingTop: 18,
   },
   Title: {
     color: colors.title,
@@ -256,173 +270,203 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sansRegular,
     fontSize: 12,
     lineHeight: 18,
-    marginTop: 2,
   },
-  ExitPill: {
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    backgroundColor: colors.card,
-    borderColor: colors.cardBorder,
-    borderRadius: 12,
-    borderWidth: 1,
-    height: 28,
-    justifyContent: 'center',
-    marginTop: 8,
-    paddingHorizontal: 14,
-  },
-  ExitPillText: {
-    color: colors.title,
-    fontFamily: fonts.sansSemiBold,
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  Divider: {
-    backgroundColor: colors.cardBorder,
-    height: 1,
-    marginBottom: 16,
-    marginHorizontal: layout.screenPadding,
-  },
-  Body: {
+  Scroll: {
     flex: 1,
+  },
+  ScrollContent: {
+    gap: 14,
+    paddingBottom: 24,
     paddingHorizontal: layout.screenPadding,
+    paddingTop: 8,
   },
   Card: {
-    alignItems: 'center',
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,
     borderRadius: 18,
     borderWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 22,
-    width: '100%',
+    elevation: 5,
+    padding: 21,
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.35,
+    shadowRadius: 11,
   },
-  Intro: {
+  AlarmCard: {
+    backgroundColor: '#191540',
+  },
+  CardHeader: {
     alignItems: 'center',
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  CardHeaderLeft: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 12,
+  },
+  IconBox: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(201,164,39,0.1)',
+    borderColor: 'rgba(201,164,39,0.2)',
+    borderRadius: 13,
+    borderWidth: 1,
+    height: 44,
     justifyContent: 'center',
+    width: 44,
   },
-  IntroImage: {
-    height: 260,
-    marginBottom: 12,
-    width: 180,
+  IconImage: {
+    height: 24,
+    tintColor: colors.button,
+    width: 24,
   },
-  LevelLabel: {
+  CardTitle: {
+    color: colors.title,
+    fontFamily: fonts.sansBold,
+    fontSize: 15,
+    fontWeight: '700',
+    lineHeight: 22.5,
+  },
+  CardSubtitle: {
+    color: colors.bodyMuted,
+    fontFamily: fonts.sansRegular,
+    fontSize: 11,
+    lineHeight: 16.5,
+  },
+  FreqDisplay: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  FreqValue: {
+    color: colors.button,
+    fontFamily: fonts.sansExtraBold,
+    fontSize: 36,
+    fontWeight: '900',
+    letterSpacing: -0.72,
+    lineHeight: 54,
+  },
+  FreqUnit: {
+    color: colors.bodyMuted,
+    fontFamily: fonts.sansRegular,
+    fontSize: 12,
+    lineHeight: 18,
+  },
+  SliderSection: {
+    marginTop: 18,
+  },
+  SliderLabels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  SliderLabel: {
+    color: colors.bodyMuted,
+    fontFamily: fonts.sansRegular,
+    fontSize: 10,
+    lineHeight: 15,
+  },
+  SliderControl: {
+    height: 34,
+    marginHorizontal: -8,
+    marginTop: 4,
+  },
+  StatusBadge: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(201,164,39,0.08)',
+    borderColor: 'rgba(201,164,39,0.18)',
+    borderRadius: 9,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 16,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  StatusDot: {
+    backgroundColor: colors.button,
+    borderRadius: 3.5,
+    height: 7,
+    width: 7,
+  },
+  StatusText: {
     color: colors.button,
     fontFamily: fonts.sansSemiBold,
     fontSize: 12,
     fontWeight: '600',
-    marginBottom: 10,
-    textAlign: 'center',
+    lineHeight: 18,
   },
-  IntroText: {
-    color: colors.body,
-    fontFamily: fonts.sansRegular,
-    fontSize: 14,
-    lineHeight: 21,
-    marginBottom: 18,
-    textAlign: 'center',
+  PlayButtonRow: {
+    alignItems: 'center',
+    marginTop: 22,
   },
-  PrimaryFull: {
-    alignSelf: 'stretch',
-    width: '100%',
+  PlayButton: {
+    alignItems: 'center',
+    backgroundColor: colors.button,
+    borderRadius: 38,
+    elevation: 6,
+    height: 76,
+    justifyContent: 'center',
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 6},
+    shadowOpacity: 0.35,
+    shadowRadius: 22,
+    width: 76,
   },
-  QuestionBlock: {
-    flex: 1,
+  PlayButtonIcon: {
+    color: colors.buttonText,
+    fontSize: 28,
   },
-  ProgressText: {
+  PlayButtonImage: {
+    height: 32,
+    tintColor: colors.buttonText,
+    width: 32,
+  },
+  VolumeLabelRow: {
+    marginTop: 22,
+  },
+  VolumeLabel: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansSemiBold,
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
-    marginBottom: 10,
+    lineHeight: 16.5,
   },
-  QuestionText: {
-    color: colors.title,
-    fontFamily: fonts.sansBold,
-    fontSize: 20,
-    fontWeight: '700',
-    lineHeight: 28,
-    marginBottom: 20,
+  VolumeBars: {
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    gap: 3,
+    marginTop: 9,
   },
-  Options: {
-    gap: 12,
-  },
-  Option: {
-    alignItems: 'center',
-    backgroundColor: colors.card,
-    borderColor: colors.cardBorder,
-    borderRadius: 14,
-    borderWidth: 1,
-    justifyContent: 'center',
-    minHeight: 48,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  OptionCorrect: {
-    backgroundColor: 'rgba(36, 112, 199, 0.35)',
-    borderColor: colors.progressActive,
-  },
-  OptionWrong: {
-    backgroundColor: 'rgba(192, 64, 64, 0.28)',
-    borderColor: '#c04040',
-  },
-  OptionText: {
-    color: colors.title,
-    fontFamily: fonts.sansRegular,
-    fontSize: 14,
-    lineHeight: 20,
-    textAlign: 'center',
-  },
-  OptionTextDim: {
-    color: colors.bodyMuted,
-  },
-  QuestionImage: {
-    alignSelf: 'center',
-    height: 140,
-    marginTop: 20,
-    width: 100,
-  },
-  Result: {
-    alignItems: 'center',
+  VolumeBar: {
+    borderRadius: 2,
     flex: 1,
-    marginTop: 24,
   },
-  ResultImage: {
-    height: 200,
-    marginBottom: 12,
-    width: 140,
+  VolumeSlider: {
+    height: 34,
+    marginHorizontal: -8,
+    marginTop: 4,
   },
-  ResultTitle: {
-    color: colors.title,
-    fontFamily: fonts.sansExtraBold,
-    fontSize: 22,
-    fontWeight: '800',
-    marginBottom: 6,
-    textAlign: 'center',
+  WarningBox: {
+    alignItems: 'flex-start',
+    backgroundColor: 'rgba(192,64,64,0.1)',
+    borderColor: 'rgba(192,64,64,0.25)',
+    borderRadius: 9,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 9,
+    marginTop: 16,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
   },
-  ResultSubtitle: {
-    color: colors.bodyMuted,
-    fontFamily: fonts.sansRegular,
+  WarningIcon: {
+    color: '#c04040',
     fontSize: 13,
-    lineHeight: 19,
-    marginBottom: 14,
-    textAlign: 'center',
+    marginTop: 1,
   },
-  ResultBtn: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: colors.tabBar,
-    borderColor: colors.cardBorder,
-    borderRadius: radius.maps,
-    borderWidth: 1,
-    height: 44,
-    justifyContent: 'center',
-    marginTop: 10,
-  },
-  ResultBtnText: {
-    color: colors.title,
-    fontFamily: fonts.sansSemiBold,
-    fontSize: 14,
-    fontWeight: '600',
+  WarningText: {
+    color: '#c04040',
+    flex: 1,
+    fontFamily: fonts.sansRegular,
+    fontSize: 11,
+    lineHeight: 17,
   },
 });

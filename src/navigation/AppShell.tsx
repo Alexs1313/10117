@@ -75,6 +75,11 @@ const FlashlightScreen = loadNamedScreen(
   'FlashlightScreen',
   'Flashlight',
 );
+const CompassScreen = loadNamedScreen(
+  () => require('../screens/CompassScreen'),
+  'CompassScreen',
+  'Compass',
+);
 const SafetyScreen = loadNamedScreen(
   () => require('../screens/SafetyScreen'),
   'SafetyScreen',
@@ -96,6 +101,8 @@ function TabContent({ activeTab }: { activeTab: GuestTab }) {
       return <MapScreen />;
     case 'FlashlightTab':
       return <FlashlightScreen />;
+    case 'CompassTab':
+      return <CompassScreen />;
     case 'SafetyTab':
       return <SafetyScreen />;
     default:
