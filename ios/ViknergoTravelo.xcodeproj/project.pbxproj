@@ -12,6 +12,43 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		AD3E6FEED080DAF76280D314 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		D101C3BA3019F4E800F93B2E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D101C3B93019F4E800F93B2E /* AudioToolbox.framework */; };
+		D101C3BC3019F4F500F93B2E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D101C3BB3019F4F500F93B2E /* AVKit.framework */; };
+		D101C3BE3019F50300F93B2E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D101C3BD3019F50200F93B2E /* AVFoundation.framework */; };
+		6776974EB9584521BB7DFFA0 /* freesound_community_generic_censor_tone_104518.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A55BD7ED3514F4CBC40266F /* freesound_community_generic_censor_tone_104518.mp3 */; };
+		CFE9173563EC4ACDAA843956 /* dragon_studio_animal_grunt_382728.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E28ECA0EE6874D5DB3DF3760 /* dragon_studio_animal_grunt_382728.mp3 */; };
+		CB7BAF5E0587468997012E27 /* viknergo_icon_back.png in Resources */ = {isa = PBXBuildFile; fileRef = F68120942C7841D3804DC6B7 /* viknergo_icon_back.png */; };
+		8A5F5CEBDF2E423BA30598C7 /* viknergo_onboard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FAC4B56BC14E22BBE44469 /* viknergo_onboard2.png */; };
+		86243948C1894F21B4D5B260 /* viknergo_tab_locations.png in Resources */ = {isa = PBXBuildFile; fileRef = EB24485A996E4992864FD85E /* viknergo_tab_locations.png */; };
+		39D4A2A65F6E426DAE22CA28 /* viknergo_onboard3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C439DE93CBA40569D08D793 /* viknergo_onboard3.png */; };
+		989D6E0E63EB4A0796419DE1 /* viknergo_tab_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F843A331B274AED8F486D6F /* viknergo_tab_map.png */; };
+		62948C8170E848B48B8FD49C /* viknergo_onboard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF48EFC0F7C4C3DB6D546BB /* viknergo_onboard1.png */; };
+		A32BEBF56E85464B95DB66CD /* viknergo_icon_maps.png in Resources */ = {isa = PBXBuildFile; fileRef = 6201112FCFF247E8868D2AEB /* viknergo_icon_maps.png */; };
+		0B057A2928444904AB3AD572 /* viknergo_location_trolltunga.png in Resources */ = {isa = PBXBuildFile; fileRef = F261612400684E178E2CD5D1 /* viknergo_location_trolltunga.png */; };
+		8A786D59CE8C4897985DBC7F /* viknergo_icon_external.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF58812B71448A8282986E /* viknergo_icon_external.png */; };
+		938EECDD59F74766BE634676 /* viknergo_onboard4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B2BD1404B6441C8A7CF6078 /* viknergo_onboard4.png */; };
+		D12DFC9051354DF9BA79302E /* viknergo_loader_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAAC170DD9A4E8A901B4C9D /* viknergo_loader_logo.png */; };
+		09AEF7AED0B94933951D20A4 /* viknergo_icon_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A424395ED404388884B80F5 /* viknergo_icon_pin.png */; };
+		84C2A2D7E35C40B38F314603 /* viknergo_location_oulanka.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EFD17CE30FD413398888C34 /* viknergo_location_oulanka.png */; };
+		DCEB104EC1EB471E94F523A9 /* viknergo_tab_compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F39A45569754F05A17FD271 /* viknergo_tab_compass.png */; };
+		30DB94B6D1C249B5B305B569 /* viknergo_tab_flashlight.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F741985CAC49E691BFB934 /* viknergo_tab_flashlight.png */; };
+		E6103D426C7F424CA751167A /* viknergo_location_galdhopiggen.png in Resources */ = {isa = PBXBuildFile; fileRef = DD2292E8B1FF408F8A0394EC /* viknergo_location_galdhopiggen.png */; };
+		853C426B4F354887B893B5CC /* viknergo_location_reinebringen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D802BFDE3E6405A91D3E04C /* viknergo_location_reinebringen.png */; };
+		DEFFF603A57845E3A54CDAC9 /* viknergo_tab_safety.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BA7FE6FEE6641309A9B92A1 /* viknergo_tab_safety.png */; };
+		1649C557338F4AC6995BA48C /* viknergo_location_fulufjallet.png in Resources */ = {isa = PBXBuildFile; fileRef = 43182B2B4B9B45FD999127AF /* viknergo_location_fulufjallet.png */; };
+		23BB6B5EA73D4367AB71E6F7 /* viknergo_location_tyresta.png in Resources */ = {isa = PBXBuildFile; fileRef = DB709D60714E494BA9AA574A /* viknergo_location_tyresta.png */; };
+		E1583DC3D6AD49699124115F /* viknergo_location_naeroyfjord.png in Resources */ = {isa = PBXBuildFile; fileRef = B3693CCF60BD4785BE69AD5C /* viknergo_location_naeroyfjord.png */; };
+		B436A87D5C44454ABAF08CB4 /* viknergo_location_kebnekaise.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8793484605428B88F54895 /* viknergo_location_kebnekaise.png */; };
+		972C1AF814414B77AE223B1F /* viknergo_compass_dial.png in Resources */ = {isa = PBXBuildFile; fileRef = DC66956FF8D94D5587E72C7A /* viknergo_compass_dial.png */; };
+		B02209FFAA864F47A0A9D77F /* viknergo_tab_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 58D750C3EF52484CA1C79210 /* viknergo_tab_home.png */; };
+		10B822815CC24106B9127269 /* viknergo_loader_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DDEB39C4569C4C369E596440 /* viknergo_loader_bg.png */; };
+		117C3DD20C17497C9CF5A3F8 /* viknergo_location_rold_skov.png in Resources */ = {isa = PBXBuildFile; fileRef = BB791B1B59D14D1893378402 /* viknergo_location_rold_skov.png */; };
+		01F1CF1CF80E42BF80B92E0C /* viknergo_location_senja_coast.png in Resources */ = {isa = PBXBuildFile; fileRef = 220325D3A05B40D5A2364536 /* viknergo_location_senja_coast.png */; };
+		F8F816128D5141029CD06D23 /* viknergo_location_geirangerfjord.png in Resources */ = {isa = PBXBuildFile; fileRef = 886ED41B3516495296A3F99F /* viknergo_location_geirangerfjord.png */; };
+		B1334253BBE84ADFA483C4C5 /* viknergo_location_jokulsarlon.png in Resources */ = {isa = PBXBuildFile; fileRef = 552A91FB8F964423A70C37F6 /* viknergo_location_jokulsarlon.png */; };
+		983C6B1DC03842EB83E23585 /* viknergo_icon_pin_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = A510DFE41E9F436DA61D323D /* viknergo_icon_pin_detail.png */; };
+		523DC34C99D94D1BBFDAC32F /* viknergo_icon_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 609BFF864F304988800CF85A /* viknergo_icon_share.png */; };
+		96449A8BF6A44E51AA4AF4A5 /* viknergo_compass_mascot.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA2E0671F6487D9D7812B1 /* viknergo_compass_mascot.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +61,44 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-ViknergoTravelo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ViknergoTravelo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ViknergoTravelo/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ViknergoTravelo/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D101C3B93019F4E800F93B2E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D101C3BB3019F4F500F93B2E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		D101C3BD3019F50200F93B2E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		1A55BD7ED3514F4CBC40266F /* freesound_community_generic_censor_tone_104518.mp3 */ = {isa = PBXFileReference; name = "freesound_community_generic_censor_tone_104518.mp3"; path = "../src/assets/freesound_community_generic_censor_tone_104518.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E28ECA0EE6874D5DB3DF3760 /* dragon_studio_animal_grunt_382728.mp3 */ = {isa = PBXFileReference; name = "dragon_studio_animal_grunt_382728.mp3"; path = "../src/assets/dragon_studio_animal_grunt_382728.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F68120942C7841D3804DC6B7 /* viknergo_icon_back.png */ = {isa = PBXFileReference; name = "viknergo_icon_back.png"; path = "../src/assets/viknergo_icon_back.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		87FAC4B56BC14E22BBE44469 /* viknergo_onboard2.png */ = {isa = PBXFileReference; name = "viknergo_onboard2.png"; path = "../src/assets/viknergo_onboard2.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EB24485A996E4992864FD85E /* viknergo_tab_locations.png */ = {isa = PBXFileReference; name = "viknergo_tab_locations.png"; path = "../src/assets/viknergo_tab_locations.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1C439DE93CBA40569D08D793 /* viknergo_onboard3.png */ = {isa = PBXFileReference; name = "viknergo_onboard3.png"; path = "../src/assets/viknergo_onboard3.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9F843A331B274AED8F486D6F /* viknergo_tab_map.png */ = {isa = PBXFileReference; name = "viknergo_tab_map.png"; path = "../src/assets/viknergo_tab_map.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4EF48EFC0F7C4C3DB6D546BB /* viknergo_onboard1.png */ = {isa = PBXFileReference; name = "viknergo_onboard1.png"; path = "../src/assets/viknergo_onboard1.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6201112FCFF247E8868D2AEB /* viknergo_icon_maps.png */ = {isa = PBXFileReference; name = "viknergo_icon_maps.png"; path = "../src/assets/viknergo_icon_maps.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F261612400684E178E2CD5D1 /* viknergo_location_trolltunga.png */ = {isa = PBXFileReference; name = "viknergo_location_trolltunga.png"; path = "../src/assets/viknergo_location_trolltunga.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4FCF58812B71448A8282986E /* viknergo_icon_external.png */ = {isa = PBXFileReference; name = "viknergo_icon_external.png"; path = "../src/assets/viknergo_icon_external.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1B2BD1404B6441C8A7CF6078 /* viknergo_onboard4.png */ = {isa = PBXFileReference; name = "viknergo_onboard4.png"; path = "../src/assets/viknergo_onboard4.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2CAAC170DD9A4E8A901B4C9D /* viknergo_loader_logo.png */ = {isa = PBXFileReference; name = "viknergo_loader_logo.png"; path = "../src/assets/viknergo_loader_logo.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8A424395ED404388884B80F5 /* viknergo_icon_pin.png */ = {isa = PBXFileReference; name = "viknergo_icon_pin.png"; path = "../src/assets/viknergo_icon_pin.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6EFD17CE30FD413398888C34 /* viknergo_location_oulanka.png */ = {isa = PBXFileReference; name = "viknergo_location_oulanka.png"; path = "../src/assets/viknergo_location_oulanka.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F39A45569754F05A17FD271 /* viknergo_tab_compass.png */ = {isa = PBXFileReference; name = "viknergo_tab_compass.png"; path = "../src/assets/viknergo_tab_compass.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E0F741985CAC49E691BFB934 /* viknergo_tab_flashlight.png */ = {isa = PBXFileReference; name = "viknergo_tab_flashlight.png"; path = "../src/assets/viknergo_tab_flashlight.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DD2292E8B1FF408F8A0394EC /* viknergo_location_galdhopiggen.png */ = {isa = PBXFileReference; name = "viknergo_location_galdhopiggen.png"; path = "../src/assets/viknergo_location_galdhopiggen.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7D802BFDE3E6405A91D3E04C /* viknergo_location_reinebringen.png */ = {isa = PBXFileReference; name = "viknergo_location_reinebringen.png"; path = "../src/assets/viknergo_location_reinebringen.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2BA7FE6FEE6641309A9B92A1 /* viknergo_tab_safety.png */ = {isa = PBXFileReference; name = "viknergo_tab_safety.png"; path = "../src/assets/viknergo_tab_safety.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		43182B2B4B9B45FD999127AF /* viknergo_location_fulufjallet.png */ = {isa = PBXFileReference; name = "viknergo_location_fulufjallet.png"; path = "../src/assets/viknergo_location_fulufjallet.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DB709D60714E494BA9AA574A /* viknergo_location_tyresta.png */ = {isa = PBXFileReference; name = "viknergo_location_tyresta.png"; path = "../src/assets/viknergo_location_tyresta.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B3693CCF60BD4785BE69AD5C /* viknergo_location_naeroyfjord.png */ = {isa = PBXFileReference; name = "viknergo_location_naeroyfjord.png"; path = "../src/assets/viknergo_location_naeroyfjord.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5A8793484605428B88F54895 /* viknergo_location_kebnekaise.png */ = {isa = PBXFileReference; name = "viknergo_location_kebnekaise.png"; path = "../src/assets/viknergo_location_kebnekaise.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DC66956FF8D94D5587E72C7A /* viknergo_compass_dial.png */ = {isa = PBXFileReference; name = "viknergo_compass_dial.png"; path = "../src/assets/viknergo_compass_dial.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		58D750C3EF52484CA1C79210 /* viknergo_tab_home.png */ = {isa = PBXFileReference; name = "viknergo_tab_home.png"; path = "../src/assets/viknergo_tab_home.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DDEB39C4569C4C369E596440 /* viknergo_loader_bg.png */ = {isa = PBXFileReference; name = "viknergo_loader_bg.png"; path = "../src/assets/viknergo_loader_bg.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB791B1B59D14D1893378402 /* viknergo_location_rold_skov.png */ = {isa = PBXFileReference; name = "viknergo_location_rold_skov.png"; path = "../src/assets/viknergo_location_rold_skov.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		220325D3A05B40D5A2364536 /* viknergo_location_senja_coast.png */ = {isa = PBXFileReference; name = "viknergo_location_senja_coast.png"; path = "../src/assets/viknergo_location_senja_coast.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		886ED41B3516495296A3F99F /* viknergo_location_geirangerfjord.png */ = {isa = PBXFileReference; name = "viknergo_location_geirangerfjord.png"; path = "../src/assets/viknergo_location_geirangerfjord.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		552A91FB8F964423A70C37F6 /* viknergo_location_jokulsarlon.png */ = {isa = PBXFileReference; name = "viknergo_location_jokulsarlon.png"; path = "../src/assets/viknergo_location_jokulsarlon.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A510DFE41E9F436DA61D323D /* viknergo_icon_pin_detail.png */ = {isa = PBXFileReference; name = "viknergo_icon_pin_detail.png"; path = "../src/assets/viknergo_icon_pin_detail.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		609BFF864F304988800CF85A /* viknergo_icon_share.png */ = {isa = PBXFileReference; name = "viknergo_icon_share.png"; path = "../src/assets/viknergo_icon_share.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		56AA2E0671F6487D9D7812B1 /* viknergo_compass_mascot.png */ = {isa = PBXFileReference; name = "viknergo_compass_mascot.png"; path = "../src/assets/viknergo_compass_mascot.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +106,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D101C3BE3019F50300F93B2E /* AVFoundation.framework in Frameworks */,
+				D101C3BC3019F4F500F93B2E /* AVKit.framework in Frameworks */,
+				D101C3BA3019F4E800F93B2E /* AudioToolbox.framework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-ViknergoTravelo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,6 +131,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D101C3BD3019F50200F93B2E /* AVFoundation.framework */,
+				D101C3BB3019F4F500F93B2E /* AVKit.framework */,
+				D101C3B93019F4E800F93B2E /* AudioToolbox.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-ViknergoTravelo.a */,
 			);
@@ -75,6 +155,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				D4215312BCD44AB1ACC54410 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -97,6 +178,48 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		D4215312BCD44AB1ACC54410 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				1A55BD7ED3514F4CBC40266F /* freesound_community_generic_censor_tone_104518.mp3 */,
+				E28ECA0EE6874D5DB3DF3760 /* dragon_studio_animal_grunt_382728.mp3 */,
+				F68120942C7841D3804DC6B7 /* viknergo_icon_back.png */,
+				87FAC4B56BC14E22BBE44469 /* viknergo_onboard2.png */,
+				EB24485A996E4992864FD85E /* viknergo_tab_locations.png */,
+				1C439DE93CBA40569D08D793 /* viknergo_onboard3.png */,
+				9F843A331B274AED8F486D6F /* viknergo_tab_map.png */,
+				4EF48EFC0F7C4C3DB6D546BB /* viknergo_onboard1.png */,
+				6201112FCFF247E8868D2AEB /* viknergo_icon_maps.png */,
+				F261612400684E178E2CD5D1 /* viknergo_location_trolltunga.png */,
+				4FCF58812B71448A8282986E /* viknergo_icon_external.png */,
+				1B2BD1404B6441C8A7CF6078 /* viknergo_onboard4.png */,
+				2CAAC170DD9A4E8A901B4C9D /* viknergo_loader_logo.png */,
+				8A424395ED404388884B80F5 /* viknergo_icon_pin.png */,
+				6EFD17CE30FD413398888C34 /* viknergo_location_oulanka.png */,
+				8F39A45569754F05A17FD271 /* viknergo_tab_compass.png */,
+				E0F741985CAC49E691BFB934 /* viknergo_tab_flashlight.png */,
+				DD2292E8B1FF408F8A0394EC /* viknergo_location_galdhopiggen.png */,
+				7D802BFDE3E6405A91D3E04C /* viknergo_location_reinebringen.png */,
+				2BA7FE6FEE6641309A9B92A1 /* viknergo_tab_safety.png */,
+				43182B2B4B9B45FD999127AF /* viknergo_location_fulufjallet.png */,
+				DB709D60714E494BA9AA574A /* viknergo_location_tyresta.png */,
+				B3693CCF60BD4785BE69AD5C /* viknergo_location_naeroyfjord.png */,
+				5A8793484605428B88F54895 /* viknergo_location_kebnekaise.png */,
+				DC66956FF8D94D5587E72C7A /* viknergo_compass_dial.png */,
+				58D750C3EF52484CA1C79210 /* viknergo_tab_home.png */,
+				DDEB39C4569C4C369E596440 /* viknergo_loader_bg.png */,
+				BB791B1B59D14D1893378402 /* viknergo_location_rold_skov.png */,
+				220325D3A05B40D5A2364536 /* viknergo_location_senja_coast.png */,
+				886ED41B3516495296A3F99F /* viknergo_location_geirangerfjord.png */,
+				552A91FB8F964423A70C37F6 /* viknergo_location_jokulsarlon.png */,
+				A510DFE41E9F436DA61D323D /* viknergo_icon_pin_detail.png */,
+				609BFF864F304988800CF85A /* viknergo_icon_share.png */,
+				56AA2E0671F6487D9D7812B1 /* viknergo_compass_mascot.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -161,6 +284,40 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				AD3E6FEED080DAF76280D314 /* PrivacyInfo.xcprivacy in Resources */,
+				6776974EB9584521BB7DFFA0 /* freesound_community_generic_censor_tone_104518.mp3 in Resources */,
+				CFE9173563EC4ACDAA843956 /* dragon_studio_animal_grunt_382728.mp3 in Resources */,
+				CB7BAF5E0587468997012E27 /* viknergo_icon_back.png in Resources */,
+				8A5F5CEBDF2E423BA30598C7 /* viknergo_onboard2.png in Resources */,
+				86243948C1894F21B4D5B260 /* viknergo_tab_locations.png in Resources */,
+				39D4A2A65F6E426DAE22CA28 /* viknergo_onboard3.png in Resources */,
+				989D6E0E63EB4A0796419DE1 /* viknergo_tab_map.png in Resources */,
+				62948C8170E848B48B8FD49C /* viknergo_onboard1.png in Resources */,
+				A32BEBF56E85464B95DB66CD /* viknergo_icon_maps.png in Resources */,
+				0B057A2928444904AB3AD572 /* viknergo_location_trolltunga.png in Resources */,
+				8A786D59CE8C4897985DBC7F /* viknergo_icon_external.png in Resources */,
+				938EECDD59F74766BE634676 /* viknergo_onboard4.png in Resources */,
+				D12DFC9051354DF9BA79302E /* viknergo_loader_logo.png in Resources */,
+				09AEF7AED0B94933951D20A4 /* viknergo_icon_pin.png in Resources */,
+				84C2A2D7E35C40B38F314603 /* viknergo_location_oulanka.png in Resources */,
+				DCEB104EC1EB471E94F523A9 /* viknergo_tab_compass.png in Resources */,
+				30DB94B6D1C249B5B305B569 /* viknergo_tab_flashlight.png in Resources */,
+				E6103D426C7F424CA751167A /* viknergo_location_galdhopiggen.png in Resources */,
+				853C426B4F354887B893B5CC /* viknergo_location_reinebringen.png in Resources */,
+				DEFFF603A57845E3A54CDAC9 /* viknergo_tab_safety.png in Resources */,
+				1649C557338F4AC6995BA48C /* viknergo_location_fulufjallet.png in Resources */,
+				23BB6B5EA73D4367AB71E6F7 /* viknergo_location_tyresta.png in Resources */,
+				E1583DC3D6AD49699124115F /* viknergo_location_naeroyfjord.png in Resources */,
+				B436A87D5C44454ABAF08CB4 /* viknergo_location_kebnekaise.png in Resources */,
+				972C1AF814414B77AE223B1F /* viknergo_compass_dial.png in Resources */,
+				B02209FFAA864F47A0A9D77F /* viknergo_tab_home.png in Resources */,
+				10B822815CC24106B9127269 /* viknergo_loader_bg.png in Resources */,
+				117C3DD20C17497C9CF5A3F8 /* viknergo_location_rold_skov.png in Resources */,
+				01F1CF1CF80E42BF80B92E0C /* viknergo_location_senja_coast.png in Resources */,
+				F8F816128D5141029CD06D23 /* viknergo_location_geirangerfjord.png in Resources */,
+				B1334253BBE84ADFA483C4C5 /* viknergo_location_jokulsarlon.png in Resources */,
+				983C6B1DC03842EB83E23585 /* viknergo_icon_pin_detail.png in Resources */,
+				523DC34C99D94D1BBFDAC32F /* viknergo_icon_share.png in Resources */,
+				96449A8BF6A44E51AA4AF4A5 /* viknergo_compass_mascot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,9 +348,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ViknergoTravelo/Pods-ViknergoTravelo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ViknergoTravelo/Pods-ViknergoTravelo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -230,9 +391,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ViknergoTravelo/Pods-ViknergoTravelo-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ViknergoTravelo/Pods-ViknergoTravelo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -276,9 +441,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ViknergoTravelo;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -305,8 +473,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ViknergoTravelo;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

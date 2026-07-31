@@ -1,0 +1,141 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/dragon_studio_animal_grunt_382728.mp3",
+      "sha1": "69c3d4641647d6c9e9ab36b59dcf246caeac2aa4"
+    },
+    {
+      "path": "src/assets/freesound_community_generic_censor_tone_104518.mp3",
+      "sha1": "45c9b824bc2d7c259da0d0a69ac4746a6b9e92a5"
+    },
+    {
+      "path": "src/assets/viknergo_compass_dial.png",
+      "sha1": "879ec15eb2d3a0e4ddffabc7334e63c69abaf95c"
+    },
+    {
+      "path": "src/assets/viknergo_compass_mascot.png",
+      "sha1": "1b68f8310d20bb9b2a8b9b3565352bde96dba4d9"
+    },
+    {
+      "path": "src/assets/viknergo_icon_back.png",
+      "sha1": "344adbab98acb78bd6aa4a354cf1433e2d1b5932"
+    },
+    {
+      "path": "src/assets/viknergo_icon_external.png",
+      "sha1": "9fe4ed4c5f0d077040bdae5cfc6ce7b0e9ee3f66"
+    },
+    {
+      "path": "src/assets/viknergo_icon_maps.png",
+      "sha1": "6b2ebfd2573c6db225ff7bee3f25887979b9bb06"
+    },
+    {
+      "path": "src/assets/viknergo_icon_pin_detail.png",
+      "sha1": "942ca73d3cd4b1fc88cf28512753b268c802f689"
+    },
+    {
+      "path": "src/assets/viknergo_icon_pin.png",
+      "sha1": "6b2ebfd2573c6db225ff7bee3f25887979b9bb06"
+    },
+    {
+      "path": "src/assets/viknergo_icon_share.png",
+      "sha1": "0cf464aca05cb07d65575b4675c975ec1d423ca4"
+    },
+    {
+      "path": "src/assets/viknergo_loader_bg.png",
+      "sha1": "f7dac3c614d47c999709adc576ae6d1d55db4849"
+    },
+    {
+      "path": "src/assets/viknergo_loader_logo.png",
+      "sha1": "78bf009f1c05f0038227e3f4823d2cb1d93db165"
+    },
+    {
+      "path": "src/assets/viknergo_location_fulufjallet.png",
+      "sha1": "f59c1e63e63367aa1d3d4e398770cdef28d2a992"
+    },
+    {
+      "path": "src/assets/viknergo_location_galdhopiggen.png",
+      "sha1": "5544759cf220202d62fab8adba46913f7b094ff1"
+    },
+    {
+      "path": "src/assets/viknergo_location_geirangerfjord.png",
+      "sha1": "953da4eb6d372a93bf8d93ba73ab38b5d3ec041b"
+    },
+    {
+      "path": "src/assets/viknergo_location_jokulsarlon.png",
+      "sha1": "6fb969d9435a402e3c8779f2926ca79f5e39ea55"
+    },
+    {
+      "path": "src/assets/viknergo_location_kebnekaise.png",
+      "sha1": "cb02f645d229d5487705b980ac84556195b8f9f3"
+    },
+    {
+      "path": "src/assets/viknergo_location_naeroyfjord.png",
+      "sha1": "25e0cf06e77d422e3f36f98e035e8ffab6c4dd4c"
+    },
+    {
+      "path": "src/assets/viknergo_location_oulanka.png",
+      "sha1": "c3e352817fea6094f63241d3c85c4f1adc3ec87c"
+    },
+    {
+      "path": "src/assets/viknergo_location_reinebringen.png",
+      "sha1": "b76751b5b42c057012738054c0d3a53c1d2922e1"
+    },
+    {
+      "path": "src/assets/viknergo_location_rold_skov.png",
+      "sha1": "3eb0232bd728e8ea5e44f415db4ccfcc9a4c6b04"
+    },
+    {
+      "path": "src/assets/viknergo_location_senja_coast.png",
+      "sha1": "8b71b21abe323075e2055c25a1ab188a9d268d2a"
+    },
+    {
+      "path": "src/assets/viknergo_location_trolltunga.png",
+      "sha1": "bcca4d9662e2a1dfb5c7972b33afa6b89657a131"
+    },
+    {
+      "path": "src/assets/viknergo_location_tyresta.png",
+      "sha1": "6ba7f318126ee8f5e29e78f58c7a5b163510fdf1"
+    },
+    {
+      "path": "src/assets/viknergo_onboard1.png",
+      "sha1": "adcb4205270dbfbded022046746707a06f482bed"
+    },
+    {
+      "path": "src/assets/viknergo_onboard2.png",
+      "sha1": "aea2133b0247d2803d0c17838dcf4221e12c2d1c"
+    },
+    {
+      "path": "src/assets/viknergo_onboard3.png",
+      "sha1": "cb590b015742a7e2aecb1ed0084ca392c66a3746"
+    },
+    {
+      "path": "src/assets/viknergo_onboard4.png",
+      "sha1": "9c50b04a8e0dc6803f2d58ab186a806b24baa4f2"
+    },
+    {
+      "path": "src/assets/viknergo_tab_compass.png",
+      "sha1": "2f167d74f8f066163e447fe909248352e05b74f0"
+    },
+    {
+      "path": "src/assets/viknergo_tab_flashlight.png",
+      "sha1": "50761f58e8b1efb7b68bb6786c24e6a4c67531bf"
+    },
+    {
+      "path": "src/assets/viknergo_tab_home.png",
+      "sha1": "7210710428ceb14323ad2abd4f430ce0c6689fa1"
+    },
+    {
+      "path": "src/assets/viknergo_tab_locations.png",
+      "sha1": "f7474d139debe6c14d72598d0c5abed3206b988c"
+    },
+    {
+      "path": "src/assets/viknergo_tab_map.png",
+      "sha1": "57bf96f5e9b975cf2b0ae24df58930652c6993df"
+    },
+    {
+      "path": "src/assets/viknergo_tab_safety.png",
+      "sha1": "909bd2fbd44302f6496cc0ecce4e1186b44197ea"
+    }
+  ]
+}
