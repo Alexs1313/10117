@@ -1,18 +1,22 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import {
   LOCATION_CATEGORIES,
   type LocationCategory,
 } from '../../data/locations';
-import {colors, fonts, radius} from '../../constants/theme';
+
+import { colors, fonts, radius } from '../../constants/theme';
 
 type CategoryChipsProps = {
   activeCategory: LocationCategory;
   onSelect: (category: LocationCategory) => void;
 };
 
-export function CategoryChips({activeCategory, onSelect}: CategoryChipsProps) {
+export function CategoryChips({
+  activeCategory,
+  onSelect,
+}: CategoryChipsProps) {
   return (
     <View style={styles.CategoryChipsFacetChassis}>
       {LOCATION_CATEGORIES.map(category => {
@@ -27,14 +31,16 @@ export function CategoryChips({activeCategory, onSelect}: CategoryChipsProps) {
               isActive
                 ? styles.CategoryChipsChipActive
                 : styles.CategoryChipsChipInactive,
-            ]}>
+            ]}
+          >
             <Text
               style={[
                 styles.CategoryChipsLabelFiligree,
                 isActive
                   ? styles.CategoryChipsLabelActive
                   : styles.CategoryChipsLabelInactive,
-              ]}>
+              ]}
+            >
               {category.label}
             </Text>
           </Pressable>
@@ -50,6 +56,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
   },
+
   CategoryChipsChip: {
     borderRadius: radius.chip,
     borderWidth: 1,
@@ -60,16 +67,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.button,
     borderColor: colors.button,
   },
+
   CategoryChipsChipInactive: {
     backgroundColor: colors.chip,
     borderColor: colors.chipBorder,
   },
+
   CategoryChipsLabelFiligree: {
     fontFamily: fonts.sansBold,
     fontSize: 12,
     fontWeight: '700',
     lineHeight: 18,
   },
+
   CategoryChipsLabelActive: {
     color: colors.buttonText,
   },

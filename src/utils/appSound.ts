@@ -1,4 +1,4 @@
-import {Image, Platform} from 'react-native';
+import { Image, Platform } from 'react-native';
 
 type SoundCallback = (error: unknown) => void;
 
@@ -40,9 +40,9 @@ function loadSoundClass(): SoundConstructor | null {
   }
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const Sound = require('react-native-sound').default as SoundConstructor;
     Sound.setCategory('Playback', true);
+
     SoundClass = Sound;
     return SoundClass;
   } catch (error) {
@@ -56,27 +56,29 @@ function toAndroidRawName(filename: string): string {
   return filename.toLowerCase().replace(/\.[^.]+$/, '');
 }
 
-function resolveSoundPath(source: SoundSource): {path: string; basePath: string} {
+function resolveSoundPath(source: SoundSource): {
+  path: string;
+  basePath: string;
+} {
   if (typeof source === 'number') {
     const asset = Image.resolveAssetSource(source);
     if (!asset?.uri) {
       throw new Error('Unable to resolve sound asset URI');
     }
-    // Metro / bundled asset URI (http in debug, file/asset in release).
-    return {path: asset.uri, basePath: ''};
+
+    return { path: asset.uri, basePath: '' };
   }
 
   if (/^(https?:|file:|asset:)/.test(source)) {
-    return {path: source, basePath: ''};
+    return { path: source, basePath: '' };
   }
 
-  // Legacy filename lookup: Android res/raw (no extension), iOS main bundle.
   if (Platform.OS === 'android') {
-    return {path: toAndroidRawName(source), basePath: ''};
+    return { path: toAndroidRawName(source), basePath: '' };
   }
 
   const Sound = loadSoundClass();
-  return {path: source, basePath: Sound?.MAIN_BUNDLE ?? ''};
+  return { path: source, basePath: Sound?.MAIN_BUNDLE ?? '' };
 }
 
 function createNoopSound(): AppSound {
@@ -111,7 +113,7 @@ export function createAppSound(
   let path: string;
   let basePath: string;
   try {
-    ({path, basePath} = resolveSoundPath(source));
+    ({ path, basePath } = resolveSoundPath(source));
   } catch (error) {
     console.warn('Failed to resolve sound source:', source, error);
     onError?.(error);

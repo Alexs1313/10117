@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Image,
   Pressable,
@@ -19,6 +25,7 @@ import {
 } from '../data/locations';
 
 import { useAppNavigation } from '../navigation/NavigationContext';
+
 import { colors, fonts, layout, radius } from '../constants/theme';
 
 const INITIAL_REGION: Region = {
@@ -86,8 +93,10 @@ const DARK_MAP_STYLE = [
 
 export function MapScreen() {
   const insets = useSafeAreaInsets();
-  const { openLocationDetail, focusedLocationId, clearFocusedLocation } = useAppNavigation();
+  const { openLocationDetail, focusedLocationId, clearFocusedLocation } =
+    useAppNavigation();
   const mapRef = useRef<MapView>(null);
+
   const [selectedLocation, setSelectedLocation] = useState<LocationItem | null>(
     null,
   );
@@ -109,7 +118,9 @@ export function MapScreen() {
   }, []);
 
   useEffect(() => {
-    if (!focusedLocationId) {return;}
+    if (!focusedLocationId) {
+      return;
+    }
     const location = LOCATIONS.find(l => l.id === focusedLocationId);
     if (location) {
       handleMarkerPress(location);
@@ -273,6 +284,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     paddingHorizontal: layout.screenPadding,
   },
+
   MapScreenTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansExtraBold,
@@ -280,6 +292,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     lineHeight: 33,
   },
+
   MapScreenMapEnclave: {
     borderColor: colors.cardBorder,
     borderRadius: radius.card,
@@ -292,6 +305,7 @@ const styles = StyleSheet.create({
   MapScreenMap: {
     flex: 1,
   },
+
   MapScreenOverlay: {
     position: 'absolute',
     zIndex: 10,
@@ -322,6 +336,7 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     width: '100%',
   },
+
   CalloutImage: {
     height: '100%',
     width: 90,
@@ -352,6 +367,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 15,
   },
+
   CalloutCloseSigil: {
     color: colors.bodyMuted,
     fontSize: 12,
@@ -371,12 +387,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 15,
   },
+
   CalloutCoordsLintel: {
     alignItems: 'center',
     flexDirection: 'row',
     gap: 4,
     marginTop: 6,
   },
+
   CalloutPinSigil: {
     height: 10,
     tintColor: colors.button,
@@ -389,6 +407,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 15,
   },
+
   CalloutOpenPortico: {
     alignItems: 'center',
     alignSelf: 'flex-start',
@@ -399,6 +418,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     paddingHorizontal: 20,
   },
+
   CalloutOpenFiligree: {
     color: colors.buttonText,
     fontFamily: fonts.sansBold,
@@ -406,6 +426,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 18,
   },
+
   CalloutPressedDim: {
     opacity: 0.85,
   },

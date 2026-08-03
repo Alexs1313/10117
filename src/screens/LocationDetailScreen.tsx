@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import {
   Image,
   Pressable,
@@ -8,25 +8,26 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {icons} from '../data/assets';
-import {formatCoordinates, getLocationById} from '../data/locations';
-import {useAppNavigation} from '../navigation/NavigationContext';
-import {colors, fonts, layout, radius} from '../constants/theme';
+import { icons } from '../data/assets';
+
+import { formatCoordinates, getLocationById } from '../data/locations';
+import { useAppNavigation } from '../navigation/NavigationContext';
+
+import { colors, fonts, layout, radius } from '../constants/theme';
 
 type LocationDetailScreenProps = {
   locationId: string;
 };
 
-export function LocationDetailScreen({locationId}: LocationDetailScreenProps) {
+export function LocationDetailScreen({
+  locationId,
+}: LocationDetailScreenProps) {
   const insets = useSafeAreaInsets();
-  const {goBack, openLocationOnMap} = useAppNavigation();
+  const { goBack, openLocationOnMap } = useAppNavigation();
 
-  const location = useMemo(
-    () => getLocationById(locationId),
-    [locationId],
-  );
+  const location = useMemo(() => getLocationById(locationId), [locationId]);
 
   if (!location) {
     return (
@@ -51,15 +52,17 @@ export function LocationDetailScreen({locationId}: LocationDetailScreenProps) {
             paddingTop: insets.top + 18,
           },
         ]}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.LocationDetailScreenHeaderLintel}>
           <Pressable
             onPress={goBack}
             hitSlop={12}
-            style={({pressed}) => [
+            style={({ pressed }) => [
               styles.LocationDetailScreenBackPortico,
               pressed && styles.LocationDetailScreenPressedDim,
-            ]}>
+            ]}
+          >
             <Image
               source={icons.back}
               style={styles.LocationDetailScreenBackSigil}
@@ -68,7 +71,8 @@ export function LocationDetailScreen({locationId}: LocationDetailScreenProps) {
           </Pressable>
           <Text
             style={styles.LocationDetailScreenTitleFiligree}
-            numberOfLines={1}>
+            numberOfLines={1}
+          >
             {location.name}
           </Text>
         </View>
@@ -102,10 +106,11 @@ export function LocationDetailScreen({locationId}: LocationDetailScreenProps) {
             onPress={() => {
               openLocationOnMap(location.id);
             }}
-            style={({pressed}) => [
+            style={({ pressed }) => [
               styles.LocationDetailScreenMapsPortico,
               pressed && styles.LocationDetailScreenPressedDim,
-            ]}>
+            ]}
+          >
             <Image
               source={icons.maps}
               style={styles.LocationDetailScreenMapsSigil}
@@ -126,6 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     flex: 1,
   },
+
   LocationDetailScreenScrollContent: {
     flexGrow: 1,
   },
@@ -135,6 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: layout.screenPadding,
   },
+
   LocationDetailScreenBackPortico: {
     alignItems: 'center',
     height: 32,
@@ -142,10 +149,11 @@ const styles = StyleSheet.create({
     marginRight: 6,
     width: 32,
   },
+
   LocationDetailScreenBackSigil: {
     height: 18,
     tintColor: colors.title,
-    transform: [{rotate: '-90deg'}],
+    transform: [{ rotate: '-90deg' }],
     width: 18,
   },
   LocationDetailScreenTitleFiligree: {
@@ -171,6 +179,7 @@ const styles = StyleSheet.create({
     gap: 5,
     marginBottom: 14,
   },
+
   LocationDetailScreenPinSigil: {
     height: 11,
     tintColor: colors.button,
@@ -191,6 +200,7 @@ const styles = StyleSheet.create({
     lineHeight: 22.75,
     marginBottom: 10,
   },
+
   LocationDetailScreenBodyFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
@@ -210,6 +220,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 295,
   },
+
   LocationDetailScreenMapsSigil: {
     height: 15,
     tintColor: colors.buttonText,
@@ -221,6 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
   },
+
   LocationDetailScreenPressedDim: {
     opacity: 0.85,
   },

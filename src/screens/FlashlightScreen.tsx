@@ -114,20 +114,27 @@ export function FlashlightScreen() {
   const panelOpacity = mode === 'sos' ? strobeAnim : brightness;
 
   return (
-    <View style={styles.ScreenChassis}>
+    <View style={styles.FlashlightScreenFacetChassis}>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={[styles.Header, { paddingTop: insets.top + 18 }]}>
-          <Text style={styles.Title}>Flashlight</Text>
-          <Text style={styles.Subtitle}>{modeSubtitle}</Text>
+        <View
+          style={[
+            styles.FlashlightScreenHeaderInset,
+            { paddingTop: insets.top + 18 },
+          ]}
+        >
+          <Text style={styles.FlashlightScreenTitleFiligree}>Flashlight</Text>
+          <Text style={styles.FlashlightScreenSubtitleFiligree}>
+            {modeSubtitle}
+          </Text>
         </View>
 
-        <View style={styles.LightPanelWrapper}>
+        <View style={styles.FlashlightScreenPanelEnclave}>
           <Animated.View
             style={[
-              styles.LightPanel,
+              styles.FlashlightScreenPanelFacetChassis,
               {
                 backgroundColor: panelBg,
                 opacity: mode === 'sos' ? 1 : brightness,
@@ -139,30 +146,38 @@ export function FlashlightScreen() {
                 style={[StyleSheet.absoluteFill, { opacity: panelOpacity }]}
               />
             )}
-            <View style={styles.LightPanelIconContainer}>
-              {mode === 'white' && <Text style={styles.IconBulb}>💡</Text>}
+            <View style={styles.FlashlightScreenPanelIconEnclave}>
+              {mode === 'white' && (
+                <Text style={styles.FlashlightScreenPanelBulbSigil}>💡</Text>
+              )}
               {mode === 'red' && (
-                <View style={styles.RedGlow}>
-                  <View style={styles.RedGlowInner} />
+                <View style={styles.FlashlightScreenPanelRedGlowEnclave}>
+                  <View style={styles.FlashlightScreenPanelRedGlowCore} />
                 </View>
               )}
-              {mode === 'sos' && <Text style={styles.IconSos}>⚠️</Text>}
+              {mode === 'sos' && (
+                <Text style={styles.FlashlightScreenPanelSosSigil}>⚠️</Text>
+              )}
             </View>
-            <View style={styles.ModeLabelBadge}>
-              <Text style={styles.ModeLabelText}>{MODE_LABELS[mode]}</Text>
+            <View style={styles.FlashlightScreenPanelBadgeEnclave}>
+              <Text style={styles.FlashlightScreenPanelBadgeFiligree}>
+                {MODE_LABELS[mode]}
+              </Text>
             </View>
           </Animated.View>
         </View>
 
-        <View style={styles.BrightnessCard}>
-          <View style={styles.BrightnessHeader}>
-            <Text style={styles.BrightnessLabel}>Brightness</Text>
-            <Text style={styles.BrightnessValue}>
+        <View style={styles.FlashlightScreenBrightnessFacetChassis}>
+          <View style={styles.FlashlightScreenBrightnessHeaderLintel}>
+            <Text style={styles.FlashlightScreenBrightnessLabelFiligree}>
+              Brightness
+            </Text>
+            <Text style={styles.FlashlightScreenBrightnessValueFiligree}>
               {Math.round(brightness * 100)}%
             </Text>
           </View>
           <AppSlider
-            style={styles.Slider}
+            style={styles.FlashlightScreenBrightnessSliderControl}
             minimumValue={0.05}
             maximumValue={1}
             value={brightness}
@@ -171,20 +186,24 @@ export function FlashlightScreen() {
             maximumTrackTintColor={colors.cardBorder}
             thumbTintColor={colors.button}
           />
-          <View style={styles.SliderLabels}>
-            <Text style={styles.SliderLabelText}>0%</Text>
-            <Text style={styles.SliderLabelText}>100%</Text>
+          <View style={styles.FlashlightScreenBrightnessSliderLabelsLintel}>
+            <Text style={styles.FlashlightScreenBrightnessSliderLabelFiligree}>
+              0%
+            </Text>
+            <Text style={styles.FlashlightScreenBrightnessSliderLabelFiligree}>
+              100%
+            </Text>
           </View>
         </View>
 
-        <View style={styles.ModeSection}>
-          <Text style={styles.ModeSectionTitle}>Mode</Text>
+        <View style={styles.FlashlightScreenModeEnclave}>
+          <Text style={styles.FlashlightScreenModeTitleFiligree}>Mode</Text>
 
           <ModeOption
             title="White Screen"
             subtitle="Full brightness white light"
             active={mode === 'white'}
-            icon={<Text style={styles.ModeOptionIcon}>💡</Text>}
+            icon={<Text style={styles.FlashlightScreenModeBulbSigil}>💡</Text>}
             onPress={() => selectMode('white')}
           />
 
@@ -193,7 +212,7 @@ export function FlashlightScreen() {
             subtitle="Preserve night vision"
             active={mode === 'red'}
             titleColor="#C94A4A"
-            icon={<View style={styles.RedDot} />}
+            icon={<View style={styles.FlashlightScreenModeRedDot} />}
             onPress={() => selectMode('red')}
           />
 
@@ -202,7 +221,7 @@ export function FlashlightScreen() {
             subtitle="Emergency signal · Morse code"
             active={mode === 'sos'}
             titleColor="#C94A4A"
-            icon={<Text style={styles.SosIcon}>⚠️</Text>}
+            icon={<Text style={styles.FlashlightScreenModeSosSigil}>⚠️</Text>}
             onPress={() => selectMode('sos')}
           />
         </View>
@@ -232,12 +251,15 @@ function ModeOption({
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onPress}
-      style={[styles.ModeOptionChassis, active && styles.ModeOptionActive]}
+      style={[
+        styles.FlashlightModeOptionFacetChassis,
+        active && styles.FlashlightModeOptionFacetChassisActive,
+      ]}
     >
-      <View style={styles.ModeOptionContent}>
+      <View style={styles.FlashlightModeOptionTextEnclave}>
         <Text
           style={[
-            styles.ModeOptionTitle,
+            styles.FlashlightModeOptionTitleFiligree,
             active
               ? { color: colors.surface }
               : titleColor
@@ -248,65 +270,74 @@ function ModeOption({
           {title}
         </Text>
         <Text
-          style={[styles.ModeOptionSubtitle, active && { color: '#6a7070' }]}
+          style={[
+            styles.FlashlightModeOptionSubtitleFiligree,
+            active && { color: '#6a7070' },
+          ]}
         >
           {subtitle}
         </Text>
       </View>
       {active ? (
-        <View style={styles.ActiveBadge}>
-          <Text style={styles.ActiveBadgeText}>ACTIVE</Text>
+        <View style={styles.FlashlightModeOptionBadgeEnclave}>
+          <Text style={styles.FlashlightModeOptionBadgeFiligree}>ACTIVE</Text>
         </View>
       ) : (
-        <View style={styles.ModeIconContainer}>{icon}</View>
+        <View style={styles.FlashlightModeOptionIconEnclave}>{icon}</View>
       )}
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  ScreenChassis: {
+  FlashlightScreenFacetChassis: {
     backgroundColor: colors.surface,
     flex: 1,
   },
-  Header: {
+
+  FlashlightScreenHeaderInset: {
     paddingBottom: 8,
     paddingHorizontal: layout.screenPadding,
   },
-  Title: {
+
+  FlashlightScreenTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansExtraBold,
     fontSize: 22,
     fontWeight: '800',
     lineHeight: 33,
   },
-  Subtitle: {
+
+  FlashlightScreenSubtitleFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
     fontSize: 12,
     fontWeight: '400',
     lineHeight: 18,
   },
-  LightPanelWrapper: {
+  FlashlightScreenPanelEnclave: {
     paddingHorizontal: layout.screenPadding,
     paddingTop: 12,
   },
-  LightPanel: {
+  FlashlightScreenPanelFacetChassis: {
     borderRadius: 16,
     height: 200,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
   },
-  LightPanelIconContainer: {
+
+  FlashlightScreenPanelIconEnclave: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
   },
-  IconBulb: {
+
+  FlashlightScreenPanelBulbSigil: {
     fontSize: 48,
   },
-  RedGlow: {
+
+  FlashlightScreenPanelRedGlowEnclave: {
     alignItems: 'center',
     backgroundColor: 'rgba(255, 45, 45, 0.3)',
     borderRadius: 50,
@@ -314,16 +345,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 100,
   },
-  RedGlowInner: {
+  FlashlightScreenPanelRedGlowCore: {
     backgroundColor: '#8B0000',
     borderRadius: 25,
     height: 50,
     width: 50,
   },
-  IconSos: {
+  FlashlightScreenPanelSosSigil: {
     fontSize: 48,
   },
-  ModeLabelBadge: {
+
+  FlashlightScreenPanelBadgeEnclave: {
     backgroundColor: 'rgba(0,0,0,0.25)',
     borderRadius: 12,
     bottom: 14,
@@ -332,14 +364,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 14,
   },
-  ModeLabelText: {
+
+  FlashlightScreenPanelBadgeFiligree: {
     color: colors.title,
     fontFamily: fonts.sansSemiBold,
     fontSize: 10,
     fontWeight: '600',
     letterSpacing: 0.8,
   },
-  BrightnessCard: {
+
+  FlashlightScreenBrightnessFacetChassis: {
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,
     borderRadius: 14,
@@ -349,49 +383,54 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
-  BrightnessHeader: {
+
+  FlashlightScreenBrightnessHeaderLintel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  BrightnessLabel: {
+  FlashlightScreenBrightnessLabelFiligree: {
     color: colors.title,
     fontFamily: fonts.sansSemiBold,
     fontSize: 14,
     fontWeight: '600',
   },
-  BrightnessValue: {
+
+  FlashlightScreenBrightnessValueFiligree: {
     color: colors.button,
     fontFamily: fonts.sansExtraBold,
     fontSize: 16,
     fontWeight: '800',
   },
-  Slider: {
+
+  FlashlightScreenBrightnessSliderControl: {
     height: 40,
     marginTop: 4,
   },
-  SliderLabels: {
+  FlashlightScreenBrightnessSliderLabelsLintel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: -4,
   },
-  SliderLabelText: {
+  FlashlightScreenBrightnessSliderLabelFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
     fontSize: 10,
   },
-  ModeSection: {
+  FlashlightScreenModeEnclave: {
     marginTop: 16,
     paddingHorizontal: layout.screenPadding,
   },
-  ModeSectionTitle: {
+
+  FlashlightScreenModeTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansSemiBold,
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 10,
   },
-  ModeOptionChassis: {
+
+  FlashlightModeOptionFacetChassis: {
     alignItems: 'center',
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,
@@ -402,49 +441,54 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
-  ModeOptionActive: {
+
+  FlashlightModeOptionFacetChassisActive: {
     backgroundColor: '#FAF8F2',
     borderColor: '#FAF8F2',
   },
-  ModeOptionContent: {
+  FlashlightModeOptionTextEnclave: {
     flex: 1,
   },
-  ModeOptionTitle: {
+  FlashlightModeOptionTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansBold,
     fontSize: 14,
     fontWeight: '700',
   },
-  ModeOptionSubtitle: {
+
+  FlashlightModeOptionSubtitleFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
     fontSize: 12,
     marginTop: 2,
   },
-  ModeOptionIcon: {
+  FlashlightScreenModeBulbSigil: {
     fontSize: 22,
   },
-  ModeIconContainer: {
+
+  FlashlightModeOptionIconEnclave: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 32,
   },
-  RedDot: {
+  FlashlightScreenModeRedDot: {
     backgroundColor: '#C94A4A',
     borderRadius: 10,
     height: 20,
     width: 20,
   },
-  SosIcon: {
+  FlashlightScreenModeSosSigil: {
     fontSize: 22,
   },
-  ActiveBadge: {
+
+  FlashlightModeOptionBadgeEnclave: {
     backgroundColor: colors.surface,
     borderRadius: 12,
     paddingHorizontal: 12,
     paddingVertical: 5,
   },
-  ActiveBadgeText: {
+
+  FlashlightModeOptionBadgeFiligree: {
     color: colors.title,
     fontFamily: fonts.sansSemiBold,
     fontSize: 10,

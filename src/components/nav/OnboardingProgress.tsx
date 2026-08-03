@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import {colors, radius} from '../../constants/theme';
+import { colors, radius } from '../../constants/theme';
 
 type OnboardingProgressProps = {
   total: number;
@@ -14,7 +14,7 @@ export function OnboardingProgress({
 }: OnboardingProgressProps) {
   return (
     <View style={styles.OnboardingProgressFacetChassis}>
-      {Array.from({length: total}).map((_, index) => {
+      {Array.from({ length: total }).map((_, index) => {
         const isActive = index < activeCount;
 
         return (
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 3,
   },
+
   OnboardingProgressSegmentActive: {
     backgroundColor: colors.progressActive,
     opacity: 1,

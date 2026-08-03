@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Pressable,
   StyleProp,
@@ -7,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {colors, fonts, layout, radius} from '../../constants/theme';
+import { colors, fonts, layout, radius } from '../../constants/theme';
 
 type PrimaryButtonProps = {
   label: string;
@@ -25,12 +26,13 @@ export function PrimaryButton({
   return (
     <Pressable
       onPress={onPress}
-      style={({pressed}) => [
+      style={({ pressed }) => [
         styles.PrimaryButtonBtnPortico,
-        width != null ? {width} : null,
+        width != null ? { width } : null,
         pressed && styles.PrimaryButtonButtonPressedDim,
         style,
-      ]}>
+      ]}
+    >
       <Text style={styles.PrimaryButtonLabelFiligree}>{label}</Text>
     </Pressable>
   );
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 18,
   },
+
   PrimaryButtonButtonPressedDim: {
     opacity: 0.85,
   },

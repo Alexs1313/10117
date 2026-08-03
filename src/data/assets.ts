@@ -2,6 +2,7 @@ import type { ImageSourcePropType } from 'react-native';
 
 export const icons = {
   loaderBg: require('../assets/viknergo_loader_bg.png') as ImageSourcePropType,
+
   loaderLogo:
     require('../assets/viknergo_loader_logo.png') as ImageSourcePropType,
   pin: require('../assets/viknergo_icon_pin.png') as ImageSourcePropType,
@@ -25,6 +26,7 @@ export const tabIcons = {
   locations:
     require('../assets/viknergo_tab_locations.png') as ImageSourcePropType,
   map: require('../assets/viknergo_tab_map.png') as ImageSourcePropType,
+
   flashlight:
     require('../assets/viknergo_tab_flashlight.png') as ImageSourcePropType,
   compass: require('../assets/viknergo_tab_compass.png') as ImageSourcePropType,

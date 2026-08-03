@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     minHeight: layout.tabHeight,
     paddingTop: 10,
   },
+
   TabBarTab: {
     alignItems: 'center',
     flex: 1,
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     paddingVertical: 4,
   },
+
   TabBarActiveIndicator: {
     backgroundColor: colors.button,
     borderBottomLeftRadius: 2,
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
   TabBarIconInactive: {
     opacity: 0.85,
   },
+
   TabBarLabelFiligree: {
     color: colors.tabInactive,
     fontFamily: fonts.sansMedium,

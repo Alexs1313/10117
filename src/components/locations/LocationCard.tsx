@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import {icons} from '../../data/assets';
-import {
-  formatCoordinates,
-  type LocationItem,
-} from '../../data/locations';
-import {colors, fonts, radius} from '../../constants/theme';
+import { icons } from '../../data/assets';
+import { formatCoordinates, type LocationItem } from '../../data/locations';
+
+import { colors, fonts, radius } from '../../constants/theme';
 
 type LocationCardProps = {
   location: LocationItem;
@@ -20,7 +12,7 @@ type LocationCardProps = {
   onOpen: () => void;
 };
 
-export function LocationCard({location, onShare, onOpen}: LocationCardProps) {
+export function LocationCard({ location, onShare, onOpen }: LocationCardProps) {
   const coords = formatCoordinates(location.latitude, location.longitude);
 
   return (
@@ -55,10 +47,11 @@ export function LocationCard({location, onShare, onOpen}: LocationCardProps) {
         <View style={styles.LocationCardActionPortico}>
           <Pressable
             onPress={onShare}
-            style={({pressed}) => [
+            style={({ pressed }) => [
               styles.LocationCardShareButton,
               pressed && styles.LocationCardButtonPressedDim,
-            ]}>
+            ]}
+          >
             <Image
               source={icons.share}
               style={styles.LocationCardShareSigil}
@@ -69,10 +62,11 @@ export function LocationCard({location, onShare, onOpen}: LocationCardProps) {
 
           <Pressable
             onPress={onOpen}
-            style={({pressed}) => [
+            style={({ pressed }) => [
               styles.LocationCardOpenButton,
               pressed && styles.LocationCardButtonPressedDim,
-            ]}>
+            ]}
+          >
             <Image
               source={icons.external}
               style={styles.LocationCardOpenSigil}
@@ -94,10 +88,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     overflow: 'hidden',
     shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 3},
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
     shadowRadius: 14,
   },
+
   LocationCardImage: {
     backgroundColor: '#1e2a50',
     height: 114,
@@ -109,6 +104,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingTop: 12,
   },
+
   LocationCardTopLintel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -124,12 +120,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 22.5,
   },
+
   LocationCardCoordsLintel: {
     alignItems: 'center',
     flexDirection: 'row',
     gap: 4,
     marginTop: 5,
   },
+
   LocationCardPinSigil: {
     height: 10,
     tintColor: colors.button,
@@ -156,11 +154,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 15,
   },
+
   LocationCardActionPortico: {
     flexDirection: 'row',
     gap: 8,
     marginTop: 12,
   },
+
   LocationCardShareButton: {
     alignItems: 'center',
     borderColor: colors.cardBorder,
@@ -182,9 +182,11 @@ const styles = StyleSheet.create({
     height: 36,
     justifyContent: 'center',
   },
+
   LocationCardButtonPressedDim: {
     opacity: 0.85,
   },
+
   LocationCardShareSigil: {
     height: 12,
     tintColor: colors.bodyMuted,
@@ -196,11 +198,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+
   LocationCardOpenSigil: {
     height: 12,
     tintColor: colors.buttonText,
     width: 12,
   },
+
   LocationCardOpenFiligree: {
     color: colors.buttonText,
     fontFamily: fonts.sansBold,

@@ -4,8 +4,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PrimaryButton } from '../components/buttons/PrimaryButton';
 import { OnboardingProgress } from '../components/nav/OnboardingProgress';
+
 import { ONBOARDING_STEPS } from '../data/onboarding';
 import { useAdaptive } from '../hooks/useAdaptive';
+
 import { colors, fonts, radius } from '../constants/theme';
 
 type OnboardingScreenProps = {
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     flex: 1,
   },
+
   OnboardingScreenContent: {
     flex: 1,
     justifyContent: 'space-between',
@@ -102,6 +105,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 4,
   },
+
   OnboardingScreenTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansExtraBold,
@@ -110,6 +114,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     lineHeight: 36,
   },
+
   OnboardingScreenBodyFiligree: {
     color: colors.body,
     fontFamily: fonts.sansRegular,
@@ -117,6 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 24.75,
   },
+
   OnboardingScreenActionPortico: {
     alignItems: 'center',
     paddingBottom: 8,

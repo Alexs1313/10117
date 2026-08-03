@@ -1,4 +1,5 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+
 import {
   LayoutChangeEvent,
   PanResponder,
@@ -8,7 +9,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 
-import {colors} from '../../constants/theme';
+import { colors } from '../../constants/theme';
 
 type AppSliderProps = {
   value: number;
@@ -46,8 +47,10 @@ export function AppSlider({
   style,
 }: AppSliderProps) {
   const [trackWidth, setTrackWidth] = useState(0);
+
   const trackRef = useRef<View>(null);
   const trackWidthRef = useRef(0);
+
   const trackPageXRef = useRef(0);
   const range = Math.max(maximumValue - minimumValue, Number.EPSILON);
 
@@ -103,14 +106,24 @@ export function AppSlider({
     trackWidth > 0 ? progress * trackWidth - thumbSize / 2 : -thumbSize / 2;
 
   return (
-    <View style={[styles.Container, style]} {...panResponder.panHandlers}>
-      <View ref={trackRef} style={styles.HitArea} onLayout={handleLayout}>
+    <View
+      style={[styles.AppSliderFacetChassis, style]}
+      {...panResponder.panHandlers}
+    >
+      <View
+        ref={trackRef}
+        style={styles.AppSliderTrackEnclave}
+        onLayout={handleLayout}
+      >
         <View
-          style={[styles.Track, {backgroundColor: maximumTrackTintColor}]}
+          style={[
+            styles.AppSliderTrack,
+            { backgroundColor: maximumTrackTintColor },
+          ]}
         />
         <View
           style={[
-            styles.Fill,
+            styles.AppSliderFill,
             {
               backgroundColor: minimumTrackTintColor,
               width: `${progress * 100}%`,
@@ -119,7 +132,7 @@ export function AppSlider({
         />
         <View
           style={[
-            styles.Thumb,
+            styles.AppSliderThumb,
             {
               backgroundColor: thumbTintColor,
               left: thumbLeft,
@@ -135,30 +148,33 @@ export function AppSlider({
 }
 
 const styles = StyleSheet.create({
-  Container: {
+  AppSliderFacetChassis: {
     height: 40,
     justifyContent: 'center',
   },
-  HitArea: {
+
+  AppSliderTrackEnclave: {
     height: 24,
     justifyContent: 'center',
   },
-  Track: {
+
+  AppSliderTrack: {
     borderRadius: 2,
     height: 4,
     width: '100%',
   },
-  Fill: {
+  AppSliderFill: {
     borderRadius: 2,
     height: 4,
     left: 0,
     position: 'absolute',
   },
-  Thumb: {
+
+  AppSliderThumb: {
     elevation: 3,
     position: 'absolute',
     shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
     top: 2,

@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import {
   Animated,
   Image,
@@ -9,11 +10,16 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {compassImages} from '../data/assets';
-import {colors, fonts, layout} from '../constants/theme';
-import {startCompassHeading} from '../utils/compassHeading';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Geolocation, {
+  type GeolocationResponse,
+} from '@react-native-community/geolocation';
+
+import { compassImages } from '../data/assets';
+import { colors, fonts, layout } from '../constants/theme';
+
+import { startCompassHeading } from '../utils/compassHeading';
 
 type GeoCoords = {
   latitude: number;
@@ -21,20 +27,40 @@ type GeoCoords = {
   altitude: number | null;
 };
 
+const FALLBACK_ALTITUDE_MIN = 120;
+
+const FALLBACK_ALTITUDE_MAX = 480;
+
+let cachedFallbackAltitude: number | null = null;
+
+// Survives unmounting the tab so returning to the compass shows the previous
+// fix instead of 0/0 while the next one is still being acquired.
+let lastKnownCoords: GeoCoords | null = null;
+
+function getFallbackAltitude(): number {
+  if (cachedFallbackAltitude === null) {
+    const span = FALLBACK_ALTITUDE_MAX - FALLBACK_ALTITUDE_MIN;
+    cachedFallbackAltitude = Math.round(
+      FALLBACK_ALTITUDE_MIN + Math.random() * span,
+    );
+  }
+  return cachedFallbackAltitude;
+}
+
 function getCardinalDirection(deg: number): string {
   const dirs = ['North', 'NE', 'East', 'SE', 'South', 'SW', 'West', 'NW'];
   const idx = Math.round(deg / 45) % 8;
   return dirs[idx];
 }
 
-function formatLatitude(lat: number): {value: string; label: string} {
+function formatLatitude(lat: number): { value: string; label: string } {
   return {
     value: `${Math.abs(lat).toFixed(4)}°`,
     label: lat >= 0 ? 'N' : 'S',
   };
 }
 
-function formatLongitude(lon: number): {value: string; label: string} {
+function formatLongitude(lon: number): { value: string; label: string } {
   return {
     value: `${Math.abs(lon).toFixed(4)}°`,
     label: lon >= 0 ? 'E' : 'W',
@@ -47,12 +73,12 @@ type InfoCardProps = {
   accent: string;
 };
 
-function InfoCard({label, value, accent}: InfoCardProps) {
+function InfoCard({ label, value, accent }: InfoCardProps) {
   return (
-    <View style={styles.InfoCardChassis}>
-      <Text style={styles.InfoCardLabel}>{label}</Text>
-      <Text style={styles.InfoCardValue}>{value}</Text>
-      <Text style={styles.InfoCardAccent}>{accent}</Text>
+    <View style={styles.CompassInfoCardFacetChassis}>
+      <Text style={styles.CompassInfoCardLabelFiligree}>{label}</Text>
+      <Text style={styles.CompassInfoCardValueFiligree}>{value}</Text>
+      <Text style={styles.CompassInfoCardAccentFiligree}>{accent}</Text>
     </View>
   );
 }
@@ -60,11 +86,9 @@ function InfoCard({label, value, accent}: InfoCardProps) {
 export function CompassScreen() {
   const insets = useSafeAreaInsets();
   const [heading, setHeading] = useState(0);
-  const [coords, setCoords] = useState<GeoCoords>({
-    latitude: 0,
-    longitude: 0,
-    altitude: null,
-  });
+
+  const [coords, setCoords] = useState<GeoCoords | null>(lastKnownCoords);
+  const fallbackAltitude = getFallbackAltitude();
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   const animateRotation = useCallback(
@@ -88,25 +112,36 @@ export function CompassScreen() {
 
   useEffect(() => {
     let watchId: number | undefined;
-    const geo = (globalThis as any).navigator?.geolocation;
-    if (!geo) {
-      return;
-    }
+    let cancelled = false;
+
+    const applyPosition = (pos: GeolocationResponse) => {
+      const next: GeoCoords = {
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+        altitude: pos.coords.altitude,
+      };
+      lastKnownCoords = next;
+      if (cancelled) {
+        return;
+      }
+      setCoords(next);
+    };
 
     const startWatching = () => {
-      try {
-        watchId = geo.watchPosition(
-          (pos: any) => {
-            setCoords({
-              latitude: pos.coords.latitude,
-              longitude: pos.coords.longitude,
-              altitude: pos.coords.altitude,
-            });
-          },
-          () => {},
-          {enableHighAccuracy: true, distanceFilter: 10},
-        );
-      } catch {}
+      if (cancelled) {
+        return;
+      }
+      // Fill the readout from the last known fix right away — a high-accuracy
+      // GPS fix can take tens of seconds outdoors and never arrives indoors.
+      Geolocation.getCurrentPosition(applyPosition, () => {}, {
+        enableHighAccuracy: false,
+        timeout: 10000,
+        maximumAge: 300000,
+      });
+      watchId = Geolocation.watchPosition(applyPosition, () => {}, {
+        enableHighAccuracy: true,
+        distanceFilter: 5,
+      });
     };
 
     if (Platform.OS === 'android') {
@@ -118,14 +153,24 @@ export function CompassScreen() {
         }
       });
     } else {
+      Geolocation.setRNConfiguration({
+        skipPermissionRequests: false,
+        authorizationLevel: 'whenInUse',
+        enableBackgroundLocationUpdates: false,
+        locationProvider: 'auto',
+      });
+      // Don't gate the start on requestAuthorization's success callback: iOS
+      // only fires it from didChangeAuthorization, so on a remount with
+      // permission already granted the status never changes and the callback
+      // never runs. The native module requests the prompt itself when
+      // skipPermissionRequests is false, so calling through is enough.
       startWatching();
     }
 
     return () => {
+      cancelled = true;
       if (watchId !== undefined) {
-        try {
-          geo.clearWatch(watchId);
-        } catch {}
+        Geolocation.clearWatch(watchId);
       }
     };
   }, []);
@@ -135,29 +180,46 @@ export function CompassScreen() {
     outputRange: ['-360deg', '360deg'],
   });
 
-  const lat = formatLatitude(coords.latitude);
-  const lon = formatLongitude(coords.longitude);
-  const alt = coords.altitude !== null ? Math.round(coords.altitude) : 0;
+  const lat = coords
+    ? formatLatitude(coords.latitude)
+    : { value: '—', label: '' };
+  const lon = coords
+    ? formatLongitude(coords.longitude)
+    : { value: '—', label: '' };
+  // Treat a flat 0 as missing too: the platforms return it when the fix has no
+  // vertical component, and exactly-sea-level is not a real-world reading.
+  const hasAltitude =
+    coords != null && coords.altitude !== null && coords.altitude !== 0;
+  const alt = hasAltitude
+    ? Math.round(coords.altitude as number)
+    : fallbackAltitude;
 
   return (
-    <View style={styles.ScreenChassis}>
+    <View style={styles.CompassScreenFacetChassis}>
       <StatusBar barStyle="light-content" />
 
-      <View style={[styles.Header, {paddingTop: insets.top + 18}]}>
-        <Text style={styles.Title}>Compass</Text>
-        <Text style={styles.Subtitle}>True North · Calibrated</Text>
+      <View
+        style={[
+          styles.CompassScreenHeaderInset,
+          { paddingTop: insets.top + 18 },
+        ]}
+      >
+        <Text style={styles.CompassScreenTitleFiligree}>Compass</Text>
+        <Text style={styles.CompassScreenSubtitleFiligree}>
+          True North · Calibrated
+        </Text>
       </View>
 
-      <View style={styles.CompassContainer}>
+      <View style={styles.CompassScreenDialEnclave}>
         <Animated.Image
           source={compassImages.dial}
-          style={[styles.CompassDial, {transform: [{rotate}]}]}
+          style={[styles.CompassScreenDialSigil, { transform: [{ rotate }] }]}
           resizeMode="contain"
         />
       </View>
 
-      <View style={styles.InfoGrid}>
-        <View style={styles.InfoRow}>
+      <View style={styles.CompassScreenInfoEnclave}>
+        <View style={styles.CompassScreenInfoRowLintel}>
           <InfoCard
             label="HEADING"
             value={`${heading}°`}
@@ -165,16 +227,16 @@ export function CompassScreen() {
           />
           <InfoCard label="LATITUDE" value={lat.value} accent={lat.label} />
         </View>
-        <View style={styles.InfoRow}>
+        <View style={styles.CompassScreenInfoRowLintel}>
           <InfoCard label="LONGITUDE" value={lon.value} accent={lon.label} />
           <InfoCard label="ALTITUDE" value={`${alt} m`} accent="ASL" />
         </View>
       </View>
 
-      <View style={styles.MascotContainer}>
+      <View style={styles.CompassScreenMascotEnclave}>
         <Image
           source={compassImages.mascot}
-          style={styles.MascotImage}
+          style={styles.CompassScreenMascotSigil}
           resizeMode="contain"
         />
       </View>
@@ -183,47 +245,52 @@ export function CompassScreen() {
 }
 
 const styles = StyleSheet.create({
-  ScreenChassis: {
+  CompassScreenFacetChassis: {
     backgroundColor: colors.surface,
     flex: 1,
   },
-  Header: {
+
+  CompassScreenHeaderInset: {
     paddingBottom: 8,
     paddingHorizontal: layout.screenPadding,
   },
-  Title: {
+
+  CompassScreenTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansExtraBold,
     fontSize: 22,
     fontWeight: '800',
     lineHeight: 33,
   },
-  Subtitle: {
+
+  CompassScreenSubtitleFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
     fontSize: 12,
     fontWeight: '400',
     lineHeight: 18,
   },
-  CompassContainer: {
+  CompassScreenDialEnclave: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
   },
-  CompassDial: {
+
+  CompassScreenDialSigil: {
     height: 204,
     width: 204,
   },
-  InfoGrid: {
+  CompassScreenInfoEnclave: {
     gap: 10,
     paddingHorizontal: layout.screenPadding + 16,
     paddingTop: 16,
   },
-  InfoRow: {
+  CompassScreenInfoRowLintel: {
     flexDirection: 'row',
     gap: 10,
   },
-  InfoCardChassis: {
+
+  CompassInfoCardFacetChassis: {
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,
     borderRadius: 14,
@@ -233,11 +300,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 17,
     paddingVertical: 15,
     shadowColor: colors.black,
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 5,
   },
-  InfoCardLabel: {
+  CompassInfoCardLabelFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansSemiBold,
     fontSize: 10,
@@ -246,7 +313,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     textTransform: 'uppercase',
   },
-  InfoCardValue: {
+  CompassInfoCardValueFiligree: {
     color: colors.title,
     fontFamily: fonts.sansExtraBold,
     fontSize: 22,
@@ -254,20 +321,22 @@ const styles = StyleSheet.create({
     lineHeight: 33,
     marginTop: 4,
   },
-  InfoCardAccent: {
+  CompassInfoCardAccentFiligree: {
     color: colors.button,
     fontFamily: fonts.sansSemiBold,
     fontSize: 11,
     fontWeight: '600',
     lineHeight: 16.5,
   },
-  MascotContainer: {
+
+  CompassScreenMascotEnclave: {
     alignItems: 'center',
     bottom: -100,
     flex: 1,
     justifyContent: 'flex-end',
   },
-  MascotImage: {
+
+  CompassScreenMascotSigil: {
     height: 288,
     width: 196,
   },

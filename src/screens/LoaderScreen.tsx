@@ -10,7 +10,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { LoaderSpinner } from '../components/nav/LoaderSpinner';
 import { icons } from '../data/assets';
+
 import { useAdaptive } from '../hooks/useAdaptive';
+
 import { colors, layout } from '../constants/theme';
 
 const LOADER_DURATION_MS = 3000;
@@ -23,6 +25,7 @@ type LoaderScreenProps = {
 export function LoaderScreen({ onComplete }: LoaderScreenProps) {
   const adaptive = useAdaptive();
   const insets = useSafeAreaInsets();
+
   const isPortrait = adaptive.height >= adaptive.width;
 
   useEffect(() => {
@@ -93,6 +96,7 @@ const styles = StyleSheet.create({
   LoaderScreenBackground: {
     flex: 1,
   },
+
   LoaderScreenContent: {
     alignItems: 'center',
     flex: 1,
@@ -100,6 +104,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 32,
   },
+
   LoaderScreenLogoSigil: {
     alignSelf: 'center',
   },

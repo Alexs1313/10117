@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,8 +10,10 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { locationImages, tabIcons } from '../data/assets';
+
 import { colors, fonts, layout } from '../constants/theme';
 import { useAppNavigation } from '../navigation/NavigationContext';
+
 import type { GuestTab } from '../navigation/types';
 
 const FACT_TEXT_PARTS = [
@@ -34,13 +35,17 @@ type QuickToolProps = {
 function QuickToolCard({ icon, title, subtitle, onPress }: QuickToolProps) {
   return (
     <TouchableOpacity
-      style={styles.ToolCard}
+      style={styles.HomeQuickToolCardFacetChassis}
       onPress={onPress}
       activeOpacity={0.7}
     >
-      <Image source={icon} style={styles.ToolIcon} resizeMode="contain" />
-      <Text style={styles.ToolTitle}>{title}</Text>
-      <Text style={styles.ToolSubtitle}>{subtitle}</Text>
+      <Image
+        source={icon}
+        style={styles.HomeQuickToolCardIconSigil}
+        resizeMode="contain"
+      />
+      <Text style={styles.HomeQuickToolCardTitleFiligree}>{title}</Text>
+      <Text style={styles.HomeQuickToolCardSubtitleFiligree}>{subtitle}</Text>
     </TouchableOpacity>
   );
 }
@@ -52,11 +57,11 @@ export function HomeScreen() {
   const goToTab = (tab: GuestTab) => () => selectTab(tab);
 
   return (
-    <View style={styles.Screen}>
+    <View style={styles.HomeScreenFacetChassis}>
       <ScrollView
-        style={styles.Scroll}
+        style={styles.HomeScreenScrollEnclave}
         contentContainerStyle={[
-          styles.ScrollContent,
+          styles.HomeScreenScrollContent,
           {
             paddingTop: insets.top + 14,
             paddingBottom: 40,
@@ -65,45 +70,53 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.Header}>
-          <Text style={styles.Greeting}>Good Morning, Explorer</Text>
-          <Text style={styles.Title}>Nordic Explorer</Text>
+        <View style={styles.HomeScreenHeaderInset}>
+          <Text style={styles.HomeScreenGreetingFiligree}>
+            Good Morning, Explorer
+          </Text>
+          <Text style={styles.HomeScreenTitleFiligree}>Nordic Explorer</Text>
         </View>
 
-        <View style={styles.LocationCard}>
-          <View style={styles.LocationImageWrap}>
+        <View style={styles.HomeScreenLocationFacetChassis}>
+          <View style={styles.HomeScreenLocationImageEnclave}>
             <Image
               source={locationImages.trolltunga}
-              style={styles.LocationImage}
+              style={styles.HomeScreenLocationImageSigil}
               resizeMode="cover"
             />
-            <View style={styles.LocationBadge}>
-              <Text style={styles.LocationBadgeText}>LOCATION OF THE DAY</Text>
+            <View style={styles.HomeScreenLocationBadgeEnclave}>
+              <Text style={styles.HomeScreenLocationBadgeFiligree}>
+                LOCATION OF THE DAY
+              </Text>
             </View>
           </View>
-          <View style={styles.LocationInfo}>
-            <View style={styles.LocationTextCol}>
-              <Text style={styles.LocationName}>Trolltunga, Norway</Text>
-              <Text style={styles.LocationDesc}>
+          <View style={styles.HomeScreenLocationInfoLintel}>
+            <View style={styles.HomeScreenLocationTextEnclave}>
+              <Text style={styles.HomeScreenLocationNameFiligree}>
+                Trolltunga, Norway
+              </Text>
+              <Text style={styles.HomeScreenLocationDescFiligree}>
                 Suspended cliff 700m above Ringedalsvatnet
               </Text>
             </View>
             <TouchableOpacity
-              style={styles.OpenButton}
+              style={styles.HomeScreenLocationOpenPortico}
               onPress={() => openLocationDetail('trolltunga')}
               activeOpacity={0.8}
             >
-              <Text style={styles.OpenButtonText}>Open</Text>
+              <Text style={styles.HomeScreenLocationOpenFiligree}>Open</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.FactCard}>
-          <Text style={styles.FactLabel}>⚡ FACT OF THE DAY</Text>
-          <Text style={styles.FactBody}>
+        <View style={styles.HomeScreenFactFacetChassis}>
+          <Text style={styles.HomeScreenFactLabelFiligree}>
+            ⚡ FACT OF THE DAY
+          </Text>
+          <Text style={styles.HomeScreenFactBodyFiligree}>
             {FACT_TEXT_PARTS.map((part, i) =>
               part.italic ? (
-                <Text key={i} style={styles.FactItalic}>
+                <Text key={i} style={styles.HomeScreenFactItalicFiligree}>
                   {part.text}
                 </Text>
               ) : (
@@ -113,9 +126,9 @@ export function HomeScreen() {
           </Text>
         </View>
 
-        <View style={styles.ToolsSection}>
-          <Text style={styles.ToolsSectionTitle}>Quick Tools</Text>
-          <View style={styles.ToolsGrid}>
+        <View style={styles.HomeScreenToolsEnclave}>
+          <Text style={styles.HomeScreenToolsTitleFiligree}>Quick Tools</Text>
+          <View style={styles.HomeScreenToolsLintel}>
             <QuickToolCard
               icon={tabIcons.compass}
               title="Compass"
@@ -148,27 +161,29 @@ export function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  Screen: {
+  HomeScreenFacetChassis: {
     backgroundColor: colors.surface,
     flex: 1,
   },
-  Scroll: {
+  HomeScreenScrollEnclave: {
     flex: 1,
   },
-  ScrollContent: {
+  HomeScreenScrollContent: {
     paddingHorizontal: layout.screenPadding,
   },
-  Header: {
+
+  HomeScreenHeaderInset: {
     paddingTop: 0,
   },
-  Greeting: {
+  HomeScreenGreetingFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansMedium,
     fontSize: 11,
     letterSpacing: 0.44,
     lineHeight: 16.5,
   },
-  Title: {
+
+  HomeScreenTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansExtraBold,
     fontSize: 22,
@@ -176,7 +191,8 @@ const styles = StyleSheet.create({
     lineHeight: 26.4,
     marginTop: 2,
   },
-  LocationCard: {
+
+  HomeScreenLocationFacetChassis: {
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,
     borderRadius: 16,
@@ -189,15 +205,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.45,
     shadowRadius: 24,
   },
-  LocationImageWrap: {
+  HomeScreenLocationImageEnclave: {
     height: 176,
     overflow: 'hidden',
   },
-  LocationImage: {
+  HomeScreenLocationImageSigil: {
     height: '100%',
     width: '100%',
   },
-  LocationBadge: {
+
+  HomeScreenLocationBadgeEnclave: {
     backgroundColor: colors.button,
     borderRadius: 6,
     left: 12,
@@ -206,7 +223,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 12,
   },
-  LocationBadgeText: {
+
+  HomeScreenLocationBadgeFiligree: {
     color: colors.buttonText,
     fontFamily: fonts.sansExtraBold,
     fontSize: 9,
@@ -215,7 +233,7 @@ const styles = StyleSheet.create({
     lineHeight: 13.5,
     textTransform: 'uppercase',
   },
-  LocationInfo: {
+  HomeScreenLocationInfoLintel: {
     alignItems: 'flex-end',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -223,31 +241,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 12,
   },
-  LocationTextCol: {
+  HomeScreenLocationTextEnclave: {
     flex: 1,
     marginRight: 14,
   },
-  LocationName: {
+  HomeScreenLocationNameFiligree: {
     color: colors.title,
     fontFamily: fonts.sansBold,
     fontSize: 17,
     fontWeight: '700',
     lineHeight: 20.4,
   },
-  LocationDesc: {
+
+  HomeScreenLocationDescFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
     fontSize: 12,
     lineHeight: 17.4,
     marginTop: 5,
   },
-  OpenButton: {
+
+  HomeScreenLocationOpenPortico: {
     backgroundColor: colors.button,
     borderRadius: 10,
     paddingHorizontal: 18,
     paddingVertical: 9,
   },
-  OpenButtonText: {
+  HomeScreenLocationOpenFiligree: {
     color: colors.buttonText,
     fontFamily: fonts.sansBold,
     fontSize: 13,
@@ -255,7 +275,7 @@ const styles = StyleSheet.create({
     lineHeight: 19.5,
     textAlign: 'center',
   },
-  FactCard: {
+  HomeScreenFactFacetChassis: {
     backgroundColor: '#191540',
     borderColor: colors.cardBorder,
     borderRadius: 14,
@@ -268,7 +288,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 7,
   },
-  FactLabel: {
+
+  HomeScreenFactLabelFiligree: {
     color: colors.button,
     fontFamily: fonts.sansBold,
     fontSize: 10,
@@ -277,33 +298,34 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     textTransform: 'uppercase',
   },
-  FactBody: {
+  HomeScreenFactBodyFiligree: {
     color: colors.title,
     fontFamily: fonts.sansRegular,
     fontSize: 13,
     lineHeight: 22.75,
     marginTop: 10,
   },
-  FactItalic: {
+  HomeScreenFactItalicFiligree: {
     fontStyle: 'italic',
   },
-  ToolsSection: {
+  HomeScreenToolsEnclave: {
     marginTop: 14,
   },
-  ToolsSectionTitle: {
+
+  HomeScreenToolsTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansBold,
     fontSize: 15,
     fontWeight: '700',
     lineHeight: 22.5,
   },
-  ToolsGrid: {
+  HomeScreenToolsLintel: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 10,
     marginTop: 12,
   },
-  ToolCard: {
+  HomeQuickToolCardFacetChassis: {
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,
     borderRadius: 14,
@@ -318,19 +340,22 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     width: '48%',
   },
-  ToolIcon: {
+
+  HomeQuickToolCardIconSigil: {
     height: 26,
     tintColor: colors.button,
     width: 26,
   },
-  ToolTitle: {
+
+  HomeQuickToolCardTitleFiligree: {
     color: colors.title,
     fontFamily: fonts.sansSemiBold,
     fontSize: 13,
     fontWeight: '600',
     lineHeight: 19.5,
   },
-  ToolSubtitle: {
+
+  HomeQuickToolCardSubtitleFiligree: {
     color: colors.bodyMuted,
     fontFamily: fonts.sansRegular,
     fontSize: 11,

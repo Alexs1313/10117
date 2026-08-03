@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
-import {Animated, Easing, StyleSheet, View} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, Easing, StyleSheet, View } from 'react-native';
 
-import {colors} from '../../constants/theme';
+import { colors } from '../../constants/theme';
 
 const BAR_COUNT = 12;
 
@@ -9,7 +9,7 @@ type LoaderSpinnerProps = {
   size?: number;
 };
 
-export function LoaderSpinner({size = 80}: LoaderSpinnerProps) {
+export function LoaderSpinner({ size = 80 }: LoaderSpinnerProps) {
   const rotation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -41,9 +41,10 @@ export function LoaderSpinner({size = 80}: LoaderSpinnerProps) {
     <Animated.View
       style={[
         styles.LoaderSpinnerFacetChassis,
-        {height: size, width: size, transform: [{rotate}]},
-      ]}>
-      {Array.from({length: BAR_COUNT}).map((_, index) => {
+        { height: size, width: size, transform: [{ rotate }] },
+      ]}
+    >
+      {Array.from({ length: BAR_COUNT }).map((_, index) => {
         const angle = (360 / BAR_COUNT) * index;
         const opacity = 0.15 + (index / BAR_COUNT) * 0.85;
 
@@ -55,9 +56,10 @@ export function LoaderSpinner({size = 80}: LoaderSpinnerProps) {
               {
                 height: size,
                 width: size,
-                transform: [{rotate: `${angle}deg`}],
+                transform: [{ rotate: `${angle}deg` }],
               },
-            ]}>
+            ]}
+          >
             <View
               style={[
                 styles.LoaderSpinnerBarSigil,
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     alignItems: 'center',
   },
+
   LoaderSpinnerBarSigil: {
     position: 'absolute',
   },
